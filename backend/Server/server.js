@@ -1,33 +1,33 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors'); // Add this line
+const cors = require('cors');
+const dbConnection = require('./config/db.config');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8081;
 
+const addRecipeRoute = require('./routes/addRecipeRoute');
+
 // Middleware
 app.use(express.json());
-app.use(cors()); // Add this line
+app.use(cors());
 
-// Connect to MongoDB
-mongoose.connect(process.env.DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((err) => {
-  console.error('Error connecting to MongoDB', err);
-});
+// Production environment: connect to the database and start listening for requests
+if (process.env.NODE_ENV !== "test") {
+  dbConnection();
+  app.listen(PORT, () => {
+    setTimeout(() => {
+      console.log(`All services are running on port: ${PORT}`);
+    }, 1000); // Add a 1-second delay
+  });
+}
 
 // Routes
+app.use('/recipe', addRecipeRoute);
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app; // Export the app instance for unit testing via supertest.

@@ -73,3 +73,15 @@ Content-Type: application/json
   "station": "Alewife"
 }
 
+###
+###
+POST http://localhost:8081/recipe/add
+Content-Type: application/json
+
+{
+  "title": "Chocolate Cake",
+  "recipe": "A delicious chocolate cake recipe.",
+  "imageData": "base64encodedstring",
+  "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs"],
+  "instructions": "Mix all ingredients and bake at 350°F for 30 minutes."
+}
