@@ -16,7 +16,11 @@ router.post('/add', async (req, res) => {
     await newRecipe.save();
     res.status(201).json(newRecipe);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error.code === 11000) { // Duplicate key error code
+      res.status(400).json({ message: 'Recipe with this title already exists' });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
   }
 });
 

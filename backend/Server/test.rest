@@ -85,3 +85,27 @@ Content-Type: application/json
   "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs"],
   "instructions": "Mix all ingredients and bake at 350°F for 30 minutes."
 }
+
+###
+PUT http://localhost:8081/recipe/update/66e310f6717e50c6e609a5eb
+Content-Type: application/json
+
+{
+  "title": "Updated Chocolate Cake",
+  "recipe": "An updated delicious chocolate cake recipe.",
+  "imageData": "updatedbase64encodedstring",
+  "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs", "1 cup milk"],
+  "instructions": "Mix all ingredients and bake at 350°F for 35 minutes."
+}
+
+###
+POST http://localhost:8081/recipe/add
+Content-Type: application/json
+
+{
+  "title": "Chocolate Cake",
+  "recipe": "Another chocolate cake recipe.",
+  "imageData": "anotherbase64encodedstring",
+  "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs"],
+  "instructions": "Mix all ingredients and bake at 350°F for 30 minutes."
+}
