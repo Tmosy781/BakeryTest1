@@ -79,10 +79,10 @@ POST http://localhost:8081/recipe/add
 Content-Type: application/json
 
 {
-  "title": "Chocolate Cake",
-  "recipe": "A delicious chocolate cake recipe.",
+  "title": "Strawberry Cake",
+  "recipe": "A delicious strawberry cake recipe.",
   "imageData": "base64encodedstring",
-  "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs"],
+  "ingredients": ["2 cups flour", "1 cup sugar", "1 tsp vanilla", "2 eggs", "1 cup milk"],
   "instructions": "Mix all ingredients and bake at 350°F for 30 minutes."
 }
 
