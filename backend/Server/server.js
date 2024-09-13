@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8081;
 
 const addRecipeRoute = require('./routes/addRecipeRoute');
 const updateRecipeRoute = require('./routes/updateRecipeRoute');
+const productRoutes = require('./routes/productRoutes'); // Import product routes
 
 // Middleware
 app.use(express.json());
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV !== "test") {
 // Routes
 app.use('/recipe', addRecipeRoute);
 app.use('/recipe', updateRecipeRoute); 
+app.use('/products', productRoutes);
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });

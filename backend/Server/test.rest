@@ -109,3 +109,44 @@ Content-Type: application/json
   "ingredients": ["2 cups flour", "1 cup sugar", "1 cup cocoa powder", "2 eggs"],
   "instructions": "Mix all ingredients and bake at 350°F for 30 minutes."
 }
+
+###
+# Create a new product
+POST http://localhost:8081/products
+Content-Type: application/json
+
+{
+  "name": "Test Product2",
+  "description": "This is another test product",
+  "price": 17.99,
+  "imageUrl": "http://example.com/image.jpg",
+  "category": "Test Category"
+}
+
+###
+# Get all products
+GET http://localhost:8081/products
+
+###
+# Get a single product by ID
+# Replace <product_id> with the actual product ID after creating a product
+GET http://localhost:8081/products/<product_id>
+
+###
+# Update a product by ID
+# Replace <product_id> with the actual product ID after creating a product
+PUT http://localhost:8081/products/<product_id>
+Content-Type: application/json
+
+{
+  "name": "Updated Test Product",
+  "description": "This is an updated test product",
+  "price": 12.99,
+  "imageUrl": "http://example.com/updated_image.jpg",
+  "category": "Updated Test Category"
+}
+
+###
+# Delete a product by ID
+# Replace <product_id> with the actual product ID after creating a product
+DELETE http://localhost:8081/products/66e3a720798a1ed2a079968e
