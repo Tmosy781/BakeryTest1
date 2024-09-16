@@ -150,3 +150,88 @@ Content-Type: application/json
 # Delete a product by ID
 # Replace <product_id> with the actual product ID after creating a product
 DELETE http://localhost:8081/products/66e3a720798a1ed2a079968e
+
+### Create Admin User
+POST http://localhost:8081/users/register
+Content-Type: application/json
+
+{
+  "username": "admin_user",
+  "email": "admin3@example.com",
+  "password": "AdminPass123!",
+  "isAdmin": true
+}
+
+### Create Regular User
+POST http://localhost:8081/users/register
+Content-Type: application/json
+
+{
+  "username": "regular_user4",
+  "email": "user4@example.com",
+  "password": "UserPass123!"
+}
+
+###
+
+### Login as Admin
+POST http://localhost:8081/users/login
+Content-Type: application/json 
+
+{
+    "username": "admin_user",
+    "password": "AdminPass123!"
+}
+
+###
+
+### Login as Regular User
+POST http://localhost:8081/users/login
+Content-Type: application/json 
+
+{
+    "username": "regular_user",
+    "password": "UserPass123!"
+}
+
+###
+
+### Get All Users (Admin only)
+GET http://localhost:8081/users/all
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+###
+
+### Edit User (Replace :id with actual user id)
+PUT http://localhost:8081/users/edit/:id
+Authorization: Bearer YOUR_TOKEN_HERE
+Content-Type: application/json
+
+{
+    "username": "updated_username",
+    "email": "updated@example.com"
+}
+
+###
+
+### Delete User (Replace :id with actual user id)
+DELETE http://localhost:8081/users/delete/:id
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+###
+
+### Get User Profile
+GET http://localhost:8081/users/profile
+Authorization: Bearer YOUR_TOKEN_HERE
+
+###
+
+### Change Password
+PUT http://localhost:8081/users/change-password
+Authorization: Bearer YOUR_TOKEN_HERE
+Content-Type: application/json
+
+{
+    "oldPassword": "UserPass123!",
+    "newPassword": "NewUserPass456!"
+}
