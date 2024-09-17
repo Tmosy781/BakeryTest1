@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Assuming you have a User model
-    required: false // Make this field optional
+    ref: 'User',
+    required: false
   },
   customerName: {
     type: String,

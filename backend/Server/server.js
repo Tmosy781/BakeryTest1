@@ -11,7 +11,8 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const getImageRoute = require('./routes/getImage');
 const postImageRoute = require('./routes/postImage');
-const cartRoutes = require('./routes/cartRoutes'); // Import the cart routes
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes'); // Import the order routes
 
 // Middleware
 app.use(express.json());
@@ -25,7 +26,8 @@ app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/image', getImageRoute);
 app.use('/image', postImageRoute);
-app.use('/carts', cartRoutes); // Add the cart routes
+app.use('/carts', cartRoutes);
+app.use('/orders', orderRoutes); // Add the order routes
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

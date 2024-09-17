@@ -282,3 +282,19 @@ Content-Type: application/json
 ### Delete a cart by ID
 DELETE http://localhost:8081/carts/{cartId}
 Content-Type: application/json
+
+### Create a new cart
+POST http://localhost:8081/carts
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "customerEmail": "john.doe@example.com",
+  "items": [
+    {
+      "productId": "66e8f8fc7934e1e78cd2f724",
+      "quantity": 2
+    }
+  ],
+  "userId": "66e8f14385f1e775bca6bda8"
+}
