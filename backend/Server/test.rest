@@ -190,7 +190,7 @@ POST http://localhost:8081/users/login
 Content-Type: application/json 
 
 {
-    "username": "regular_user",
+    "username": "regular_user1",
     "password": "UserPass123!"
 }
 
@@ -198,7 +198,7 @@ Content-Type: application/json
 
 ### Get All Users (Admin only)
 GET http://localhost:8081/users/all
-Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZThmMThkODVmMWU3NzViY2E2YmRhYyIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI2NTQyODEyLCJleHAiOjE3MjY1NDY0MTJ9.O2ofBsff9UJ503DcKq5fmVtYceBsRiWhl3OHWXUMA_0
 
 ###
 
@@ -215,8 +215,8 @@ Content-Type: application/json
 ###
 
 ### Delete User (Replace :id with actual user id)
-DELETE http://localhost:8081/users/delete/:id
-Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+DELETE http://localhost:8081/users/delete/66e8f12285f1e775bca6bda5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZThmMThkODVmMWU3NzViY2E2YmRhYyIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI2NTQyODEyLCJleHAiOjE3MjY1NDY0MTJ9.O2ofBsff9UJ503DcKq5fmVtYceBsRiWhl3OHWXUMA_0
 
 ###
 
