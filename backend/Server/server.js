@@ -11,6 +11,7 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const getImageRoute = require('./routes/getImage');
 const postImageRoute = require('./routes/postImage');
+const cartRoutes = require('./routes/cartRoutes'); // Import the cart routes
 
 // Middleware
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/image', getImageRoute);
 app.use('/image', postImageRoute);
+app.use('/carts', cartRoutes); // Add the cart routes
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -41,5 +43,3 @@ if (process.env.NODE_ENV !== "test") {
     }, 1000); // Add a 1-second delay
   });
 }
-
-module.exports = app; // Export the app instance for unit testing via supertest.

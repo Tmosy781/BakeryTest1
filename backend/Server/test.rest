@@ -116,9 +116,9 @@ POST http://localhost:8081/products
 Content-Type: application/json
 
 {
-  "name": "Test Product2",
-  "description": "This is another test product",
-  "price": 17.99,
+  "name": "Chocolate Cake",
+  "description": "Rich and moist chocolate cake",
+  "price": 15.99,
   "imageUrl": "http://example.com/image.jpg",
   "category": "Test Category"
 }
@@ -235,3 +235,50 @@ Content-Type: application/json
     "oldPassword": "UserPass123!",
     "newPassword": "NewUserPass456!"
 }
+
+### Get all carts
+GET http://localhost:8081/carts
+Content-Type: application/json
+
+###
+
+### Get a single cart by ID
+GET http://localhost:8081/carts/{cartId}
+Content-Type: application/json
+
+###
+
+### Create a new cart
+POST http://localhost:8081/carts
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "66e8f8fc7934e1e78cd2f724",
+      "quantity": 2
+    }
+  ],
+  "userId": "66e8f14385f1e775bca6bda8"
+}
+
+###
+
+### Update an existing cart by ID
+PUT http://localhost:8081/carts/{cartId}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "VALID_PRODUCT_ID",
+      "quantity": 3
+    }
+  ]
+}
+
+###
+
+### Delete a cart by ID
+DELETE http://localhost:8081/carts/{cartId}
+Content-Type: application/json
