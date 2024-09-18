@@ -15,6 +15,6 @@ router.get('/:id', getCartById);
 router.post('/', createCart);
 router.put('/:id', updateCart);
 router.delete('/:id', deleteCart);
-router.post('/add-product', addProductToCart); // Add the new route
+router.post('/:cartId/add', addProductToCart); // Update the route to match the frontend endpoint
 
 module.exports = router;

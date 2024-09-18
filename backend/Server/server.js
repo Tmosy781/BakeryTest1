@@ -38,8 +38,13 @@ app.use(errorHandler);
 
 // Production environment: connect to the database and start listening for requests
 if (process.env.NODE_ENV !== "test") {
-  dbConnection(); // Ensure the database connection is established
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+  dbConnection.connect()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    })
+    .catch(err => {
+      console.error('Failed to connect to the database', err);
+    });
 }
