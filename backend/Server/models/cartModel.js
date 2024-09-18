@@ -40,22 +40,10 @@ const cartSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Virtual field for total price
 cartSchema.virtual('totalPrice').get(function() {
-  return this.items.reduce((total, item) => {
-    // Assuming you have a method to get the product price by its ID
-    const productPrice = getProductPriceById(item.productId);
-    return total + (productPrice * item.quantity);
-  }, 0);
+  return this.items.reduce((total, item) => total + (item.quantity * item.productId.price), 0);
 });
 
-function getProductPriceById(productId) {
-  // Implement this function to get the product price by its ID
-  // This could be a database query or a lookup in a cached data structure
-  // For example:
-  // const product = await Product.findById(productId);
-  // return product.price;
-  return 10.99; // Placeholder value
-}
+const Cart = mongoose.model('Cart', cartSchema);
 
-module.exports = mongoose.model('Cart', cartSchema);
+module.exports = Cart;

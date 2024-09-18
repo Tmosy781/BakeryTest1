@@ -52,6 +52,8 @@ const ProductsPage = ({ cartId }) => {
     }
   };
 
+  console.log('cartId:', cartId); // Add this line for debugging
+
   if (loading) {
     return <div>Loading products...</div>;
   }
