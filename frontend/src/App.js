@@ -19,7 +19,6 @@ function App() {
       setCartId(storedCartId);  // Ensure this is correctly setting the cartId
     }
   }, []);
-  
 
   return (
     <>
@@ -28,7 +27,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/cart/:cartId" element={<CartPage />} />
         <Route path="/products" element={<ProductsPage cartId={cartId} />} />
-        <Route path="/login" element={<LoginPage setCartId={setCartId} />} />
+        <Route path="/loginPage" element={<LoginPage setCartId={setCartId} />} />
       </Routes>
     </>
   );

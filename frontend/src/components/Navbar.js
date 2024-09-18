@@ -1,55 +1,54 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import ReactNavbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { logout } from '../services/auth';
-
-const NavbarContainer = styled.nav`
-  background-color: #333;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const NavLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const NavLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import getUserInfo from "../utilities/decodeJwt"; // Adjust the path based on the actual location within src/
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getUserInfo();  // Decode user info from JWT stored in local storage or cookies
+  }, []);
+
   const handleLogout = () => {
-    logout();
-    setIsAuthenticated(false);
-    navigate('/');
+    localStorage.clear();  // Clear user session storage or cookies
+    setIsAuthenticated(false); // Update authentication state
+    navigate("/");
   };
 
+  const customStyle = `
+  .navbar-custom {
+    background-color: orange !important;
+    z-index: 1050; // Bootstrap's default z-index for navbar is 1000, set higher to ensure visibility
+  }
+`;
+
   return (
-    <NavbarContainer>
-      <h1 style={{ color: 'white' }}>Sugar Fairy</h1>
-      <NavLinks>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/cart">Cart</NavLink>
-        <NavLink to="/products">Products</NavLink>
-        {isAuthenticated ? (
-          <button onClick={handleLogout} style={{ color: 'white', background: 'none', border: 'none' }}>
-            Logout
-          </button>
-        ) : (
-          <NavLink to="/login">Login</NavLink>
-        )}
-      </NavLinks>
-    </NavbarContainer>
+    <>
+      <style>{customStyle}</style>
+      <ReactNavbar className="navbar-custom" variant="light">
+        <Container>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+          </Nav>
+          {isAuthenticated ? (
+            <Nav className="ml-auto">
+              <NavDropdown title="Profile" id="profile-nav-dropdown">
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Nav className="ml-auto">
+              <Nav.Link as={Link} to="/loginPage">Login</Nav.Link>
+            </Nav>
+          )}
+        </Container>
+      </ReactNavbar>
+    </>
   );
 };
 
