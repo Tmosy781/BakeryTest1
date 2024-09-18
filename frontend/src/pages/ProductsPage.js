@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts, addProductToCart } from '../services/api';
+import { fetchProducts } from '../services/api';
+import { addProductToCart } from '../services/cart';
 import styled from 'styled-components';
 
 const ProductsContainer = styled.div`
@@ -18,6 +19,7 @@ const ProductCard = styled.div`
 
 const ProductsPage = ({ cartId }) => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -26,6 +28,9 @@ const ProductsPage = ({ cartId }) => {
         setProducts(productsData);
       } catch (error) {
         console.error('Error fetching products:', error);
+        alert('Failed to fetch products. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -43,9 +48,13 @@ const ProductsPage = ({ cartId }) => {
       alert('Product added to cart');
     } catch (error) {
       console.error('Error adding product to cart:', error);
-      alert('Failed to add product to cart');
+      alert('Failed to add product to cart. Please try again later.');
     }
   };
+
+  if (loading) {
+    return <div>Loading products...</div>;
+  }
 
   return (
     <div>
