@@ -33,6 +33,13 @@ router.delete('/delete/:id', authenticateToken, isAdmin, async (req, res) => {
 router.get('/all', authenticateToken, isAdmin, userController.getAllUsers);
 
 // Get User Profile
-router.get('/profile', authenticateToken, userController.getUserProfile);
+router.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    const user = await userController.getUserProfile(req.user.id);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;

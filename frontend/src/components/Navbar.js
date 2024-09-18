@@ -36,7 +36,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
   return (
     <NavbarContainer>
-      <h1 style={{ color: 'white' }}>My App</h1>
+      <h1 style={{ color: 'white' }}>Sugar Fairy</h1>
       <NavLinks>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/cart">Cart</NavLink>

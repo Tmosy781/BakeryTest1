@@ -42,27 +42,43 @@ const userController = {
 
   async login(req, res) {
     try {
-      const { username, password } = req.body;
-      const user = await User.findOne({ username });
-      if (!user) return res.status(400).json({ message: "Invalid username or password" });
+      console.log('Login request received:', req.body); // Add logging
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) return res.status(400).json({ message: "Invalid username or password" });
+      const { email, password } = req.body;
+
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid email or password' });
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(400).json({ message: 'Invalid email or password' });
+      }
 
       const accessToken = generateAccessToken(user._id, user.email, user.username);
-      res.json({ accessToken });
+      res.status(200).json({ token: accessToken, cartId: user.cartId });
     } catch (error) {
+      console.error('Error during login:', error); // Add logging
       res.status(500).json({ message: error.message });
     }
   },
 
-  async editUser(id, userData) {
-    const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
-    return updatedUser;
+  async editUser(userId, userData) {
+    try {
+      const updatedUser = await User.findByIdAndUpdate(userId, userData, { new: true });
+      return updatedUser;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   },
 
-  async deleteUser(id) {
-    await User.findByIdAndDelete(id);
+  async deleteUser(userId) {
+    try {
+      await User.findByIdAndDelete(userId);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   },
 
   async getAllUsers(req, res) {
@@ -74,13 +90,12 @@ const userController = {
     }
   },
 
-  async getUserProfile(req, res) {
+  async getUserProfile(userId) {
     try {
-      const user = await User.findById(req.user.id);
-      if (!user) return res.status(404).json({ message: "User not found" });
-      res.json(user);
+      const user = await User.findById(userId);
+      return user;
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      throw new Error(error.message);
     }
   }
 };
