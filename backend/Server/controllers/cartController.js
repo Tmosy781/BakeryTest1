@@ -1,4 +1,5 @@
 const Cart = require('../models/cartModel');
+const Product = require('../models/productModel');
 
 // Get all carts
 const getAllCarts = async (req, res) => {
@@ -76,12 +77,42 @@ const deleteCart = async (req, res) => {
   }
 };
 
+// Add product to cart
+const addProductToCart = async (req, res) => {
+  const { cartId, productId, quantity } = req.body;
+
+  try {
+    const cart = await Cart.findById(cartId);
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const existingProductIndex = cart.products.findIndex(p => p.product.toString() === productId);
+    if (existingProductIndex >= 0) {
+      cart.products[existingProductIndex].quantity += quantity;
+    } else {
+      cart.products.push({ product: productId, quantity });
+    }
+
+    await cart.save();
+    res.status(200).json(cart);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllCarts,
   getCartById,
   createCart,
   updateCart,
-  deleteCart
+  deleteCart,
+  addProductToCart // Export the new function
 };
 
 

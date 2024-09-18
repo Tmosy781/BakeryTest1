@@ -4,7 +4,8 @@ const {
   getCartById,
   createCart,
   updateCart,
-  deleteCart
+  deleteCart,
+  addProductToCart // Import the new function
 } = require('../controllers/cartController'); // Adjust the path as necessary
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.get('/:id', getCartById);
 router.post('/', createCart);
 router.put('/:id', updateCart);
 router.delete('/:id', deleteCart);
+router.post('/add-product', addProductToCart); // Add the new route
 
 module.exports = router;

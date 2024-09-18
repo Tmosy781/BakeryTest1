@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../services/api';
+import { fetchProducts, addProductToCart } from '../services/api';
 import styled from 'styled-components';
 
 const ProductsContainer = styled.div`
@@ -16,7 +16,7 @@ const ProductCard = styled.div`
   text-align: center;
 `;
 
-const ProductsPage = () => {
+const ProductsPage = ({ cartId }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,21 @@ const ProductsPage = () => {
     getProducts();
   }, []);
 
+  const handleAddToCart = async (productId) => {
+    if (!cartId) {
+      alert('You need to be logged in to add products to the cart');
+      return;
+    }
+
+    try {
+      await addProductToCart(cartId, productId, 1);
+      alert('Product added to cart');
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+      alert('Failed to add product to cart');
+    }
+  };
+
   return (
     <div>
       <h1>Our Baked Products</h1>
@@ -42,6 +57,7 @@ const ProductsPage = () => {
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <p>${product.price.toFixed(2)}</p>
+            <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
           </ProductCard>
         ))}
       </ProductsContainer>

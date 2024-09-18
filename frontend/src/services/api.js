@@ -11,3 +11,17 @@ export const fetchProducts = async () => {
     throw error;
   }
 };
+
+export const addProductToCart = async (cartId, productId, quantity) => {
+  try {
+    const response = await axios.post(`${API_URL}/api/carts/add-product`, {
+      cartId,
+      productId,
+      quantity
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    throw error;
+  }
+};
