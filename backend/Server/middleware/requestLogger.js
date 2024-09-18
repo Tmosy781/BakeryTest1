@@ -41,4 +41,9 @@ const requestLogger = (req, res, next) => {
   next();
 };
 
-module.exports = { authenticateToken, isAdmin, errorHandler, requestLogger };
+module.exports = {
+  authenticateToken,
+  isAdmin,
+  errorHandler,
+  requestLogger,
+};

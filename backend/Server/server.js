@@ -11,8 +11,6 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const getImageRoute = require('./routes/getImage');
 const postImageRoute = require('./routes/postImage');
-const cartRoutes = require('./routes/cartRoutes');
-const orderRoutes = require('./routes/orderRoutes'); // Import the order routes
 
 // Middleware
 app.use(express.json());
@@ -20,14 +18,12 @@ app.use(cors());
 app.use(requestLogger);  // Add request logging middleware
 
 // Routes
-app.use('/api/recipes', addRecipeRoute);
-app.use('/api/recipes', updateRecipeRoute);
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/images', getImageRoute);
-app.use('/api/images', postImageRoute);
-app.use('/api/carts', cartRoutes);
-app.use('/api/orders', orderRoutes); // Add the order routes
+app.use('/recipe', addRecipeRoute);
+app.use('/recipe', updateRecipeRoute);
+app.use('/products', productRoutes);
+app.use('/users', userRoutes);
+app.use('/image', getImageRoute);
+app.use('/image', postImageRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -38,13 +34,12 @@ app.use(errorHandler);
 
 // Production environment: connect to the database and start listening for requests
 if (process.env.NODE_ENV !== "test") {
-  dbConnection.connect()
-    .then(() => {
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      });
-    })
-    .catch(err => {
-      console.error('Failed to connect to the database', err);
-    });
+  dbConnection();
+  app.listen(PORT, () => {
+    setTimeout(() => {
+      console.log(`All services are running on port: ${PORT}`);
+    }, 1000); // Add a 1-second delay
+  });
 }
+
+module.exports = app; // Export the app instance for unit testing via supertest.
