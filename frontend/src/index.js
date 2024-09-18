@@ -1,15 +1,14 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CartPage from './pages/CartPage';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/cart/:cartId" element={<CartPage />} />
-    </Routes>
-  );
-}
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-export default App;
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

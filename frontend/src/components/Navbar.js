@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const NavbarContainer = styled.nav`
   background-color: #333;
-  padding: 1rem;
+  padding: 0.1rem; /* Reduced padding to make the navbar smaller */
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -20,14 +20,14 @@ app.use(cors());
 app.use(requestLogger);  // Add request logging middleware
 
 // Routes
-app.use('/recipe', addRecipeRoute);
-app.use('/recipe', updateRecipeRoute);
-app.use('/products', productRoutes);
-app.use('/users', userRoutes);
-app.use('/image', getImageRoute);
-app.use('/image', postImageRoute);
-app.use('/carts', cartRoutes);
-app.use('/orders', orderRoutes); // Add the order routes
+app.use('/api/recipes', addRecipeRoute);
+app.use('/api/recipes', updateRecipeRoute);
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/images', getImageRoute);
+app.use('/api/images', postImageRoute);
+app.use('/api/carts', cartRoutes);
+app.use('/api/orders', orderRoutes); // Add the order routes
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -38,10 +38,8 @@ app.use(errorHandler);
 
 // Production environment: connect to the database and start listening for requests
 if (process.env.NODE_ENV !== "test") {
-  dbConnection();
+  dbConnection(); // Ensure the database connection is established
   app.listen(PORT, () => {
-    setTimeout(() => {
-      console.log(`All services are running on port: ${PORT}`);
-    }, 1000); // Add a 1-second delay
+    console.log(`Server is running on port ${PORT}`);
   });
 }

@@ -1,6 +1,5 @@
 const express = require('express');
 const Product = require('../models/productModel'); // Adjust the path as needed
-
 const router = express.Router();
 
 // Create a new product
