@@ -1,12 +1,11 @@
 const express = require('express');
-const cartController = require('../controllers/cartController'); // Import the cart controller
 const {
   getAllCarts,
   getCartById,
   createCart,
-  updateCart,
+  updateCart, // Ensure this function is defined and imported
   deleteCart,
-  addProductToCart // Import the function
+  addProductToCart
 } = require('../controllers/cartController'); // Adjust the path as necessary
 
 const router = express.Router();
@@ -14,8 +13,8 @@ const router = express.Router();
 router.get('/', getAllCarts);
 router.get('/:id', getCartById);
 router.post('/', createCart);
-router.put('/:id', updateCart);
+router.put('/:id', updateCart); // Ensure this route has a valid callback function
 router.delete('/:id', deleteCart);
-router.post('/carts/:id/add', cartController.addProductToCart);
+router.post('/:id/add', addProductToCart);
 
 module.exports = router;

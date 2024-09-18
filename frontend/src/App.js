@@ -13,11 +13,13 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedCartId = localStorage.getItem('cartId');
+    console.log('Stored cartId:', storedCartId);  // Debugging log
     if (token) {
       setIsAuthenticated(true);
-      setCartId(storedCartId);
+      setCartId(storedCartId);  // Ensure this is correctly setting the cartId
     }
   }, []);
+  
 
   return (
     <>

@@ -26,14 +26,16 @@ const LoginPage = ({ setCartId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { cartId } = await login(email, password);
-      setCartId(cartId);
+      const { cartId } = await login(email, password);  // Check if `cartId` is being returned here
+      localStorage.setItem('cartId', cartId);  // Save it to localStorage
+      setCartId(cartId);  // Set it in state
       navigate('/');
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Failed to log in');
     }
   };
+  
 
   return (
     <LoginContainer>

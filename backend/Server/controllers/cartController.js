@@ -49,6 +49,36 @@ const createCart = async (req, res) => {
   }
 };
 
+// Update a cart
+const updateCart = async (req, res) => {
+  try {
+    const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+    const updatedCartWithTotalPrice = {
+      ...cart.toObject(),
+      totalPrice: cart.totalPrice
+    };
+    res.status(200).json(updatedCartWithTotalPrice);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete a cart
+const deleteCart = async (req, res) => {
+  try {
+    const cart = await Cart.findByIdAndDelete(req.params.id);
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+    res.status(200).json({ message: 'Cart deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Add a product to the cart
 const addProductToCart = async (req, res) => {
   const { productId, quantity } = req.body;
@@ -85,6 +115,8 @@ module.exports = {
   getAllCarts,
   getCartById,
   createCart,
+  updateCart,
+  deleteCart, // Ensure this function is exported
   addProductToCart,
   // other exports...
 };
