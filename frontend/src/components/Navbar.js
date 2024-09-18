@@ -4,25 +4,25 @@ import Nav from 'react-bootstrap/Nav';
 import ReactNavbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
-import getUserInfo from "../utilities/decodeJwt"; // Adjust the path based on the actual location within src/
+import getUserInfo from "../utilities/decodeJwt";
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserInfo();  // Decode user info from JWT stored in local storage or cookies
+    getUserInfo();
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();  // Clear user session storage or cookies
-    setIsAuthenticated(false); // Update authentication state
+    localStorage.clear();
+    setIsAuthenticated(false);
     navigate("/");
   };
 
   const customStyle = `
   .navbar-custom {
     background-color: orange !important;
-    z-index: 1050; // Bootstrap's default z-index for navbar is 1000, set higher to ensure visibility
+    z-index: 1050;
   }
 `;
 
@@ -33,6 +33,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
         <Container>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/products">Products</Nav.Link>
             <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
           </Nav>
           {isAuthenticated ? (

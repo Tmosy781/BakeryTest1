@@ -5,6 +5,7 @@ import CartPage from './pages/CartPage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
+import { createCart } from './services/api'; // Import the createCart function
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,12 +14,26 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedCartId = localStorage.getItem('cartId');
-    console.log('Stored cartId:', storedCartId);  // Debugging log
+    console.log('Stored cartId:', storedCartId);
     if (token) {
       setIsAuthenticated(true);
-      setCartId(storedCartId);  // Ensure this is correctly setting the cartId
+      if (storedCartId) {
+        setCartId(storedCartId);
+      } else {
+        initializeCart();
+      }
     }
   }, []);
+
+  const initializeCart = async () => {
+    try {
+      const newCart = await createCart();
+      setCartId(newCart._id);
+      localStorage.setItem('cartId', newCart._id);
+    } catch (error) {
+      console.error('Error creating cart:', error);
+    }
+  };
 
   return (
     <>
