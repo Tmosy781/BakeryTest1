@@ -56,15 +56,41 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a product by ID
-router.delete('/:id', async (req, res) => {
+// Update product image by ID
+router.put('/:id/image', async (req, res) => {
   try {
-    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-    if (!deletedProduct) {
+    const { imageUrl } = req.body;
+    if (!imageUrl) {
+      return res.status(400).json({ message: 'Image URL is required' });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      { imageUrl },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    res.status(200).json({ message: 'Product deleted successfully' });
+
+    res.status(200).json(updatedProduct);
   } catch (error) {
+    console.error('Error updating product with image:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Endpoint to get the imageUrl of a product by ID
+router.get('/:id/image', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id, 'imageUrl');
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json({ imageUrl: product.imageUrl });
+  } catch (error) {
+    console.error('Error fetching product image:', error);
     res.status(500).json({ message: error.message });
   }
 });

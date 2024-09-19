@@ -19,7 +19,7 @@ app.use(requestLogger);  // Add request logging middleware
 // Routes
 app.use('/recipe', addRecipeRoute);
 app.use('/recipe', updateRecipeRoute);
-app.use('/products', productRoutes);
+app.use('/products', productRoutes); // Ensure this line is present
 app.use('/users', userRoutes);
 app.use('/api', imageRoutes); // Use the new imageRoutes with '/api' prefix
 
