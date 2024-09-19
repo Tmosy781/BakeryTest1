@@ -14,3 +14,8 @@ export const ProductCard = styled.div`
   width: 300px;
   text-align: center;
 `;
+
+export const PageHeading = styled.h1`
+  text-align: center;
+  margin-bottom: 20px;
+`;

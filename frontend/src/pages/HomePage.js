@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <HomePageContainer>
       <h1>Welcome to Sugar Plum</h1>
-      <p>This will be my future site! Check back soon!</p>
+      <p>Sorry for the mess! Check back soon!</p>
       <RoundedImage src="/Construction.png" alt="Construction" />
     </HomePageContainer>
   );

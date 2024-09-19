@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProducts, addProductToCart } from '../api/productApi';
-import { ProductsContainer, ProductCard } from '../styles/ProductsPageStyles';
+import { ProductsContainer, ProductCard, PageHeading } from '../styles/ProductsPageStyles';
 
 const ProductsPage = ({ cartId }) => {
   const [products, setProducts] = useState([]);
@@ -44,7 +44,7 @@ const ProductsPage = ({ cartId }) => {
 
   return (
     <div>
-      <h1>Our Baked Products</h1>
+      <PageHeading>Our Baked Products</PageHeading>
       <ProductsContainer>
         {products.map((product) => (
           <ProductCard key={product._id}>
