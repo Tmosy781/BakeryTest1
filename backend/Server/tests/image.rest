@@ -1,0 +1,35 @@
+###
+# Create a new product
+POST http://localhost:8081/products
+Content-Type: application/json
+
+{
+  "name": "Chocolate Cake",
+  "description": "A delicious chocolate cake with strawberry.",
+  "price": 18.99,
+  "imageName": "Sample Image",  # Using the image name from MongoDB
+  "category": "Desserts"
+}
+
+###
+# Get all products
+GET http://localhost:8081/products
+
+###
+# Get a single product by ID
+# Replace <product_id> with the actual product ID after creating a product
+GET http://localhost:8081/products/<product_id>
+
+###
+# Update a product by ID
+# Replace <product_id> with the actual product ID after creating a product
+PUT http://localhost:8081/products/<product_id>
+Content-Type: application/json
+
+{
+  "name": "Updated Cheesecake",
+  "description": "An updated delicious cheesecake with strawberry.",
+  "price": 19.99,
+  "imageName": "Sample Image",  # Using the image name from MongoDB
+  "category": "Desserts"
+}

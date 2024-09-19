@@ -17,14 +17,14 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: 0
   },
-  imageUrl: {
-    type: String,
-    required: false // Make this field optional
-  },
   category: {
     type: String,
     required: true,
     trim: true
+  },
+  imageName: {
+    type: String,
+    required: true
   },
   createdAt: {
     type: Date,

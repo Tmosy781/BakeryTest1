@@ -1,40 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../services/api';
-import { addProductToCart } from '../services/cart';
-import styled from 'styled-components';
-
-const ProductsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-`;
-
-const ProductCard = styled.div`
-  border: 1px solid #ddd;
-  padding: 1rem;
-  width: 200px;
-  text-align: center;
-`;
+import React, { useState, useEffect } from 'react';
+import { getProducts, addProductToCart } from '../api/productApi';
+import { ProductsContainer, ProductCard } from '../styles/ProductsPageStyles';
 
 const ProductsPage = ({ cartId }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const productsData = await fetchProducts();
-        setProducts(productsData);
+        const response = await getProducts();
+        setProducts(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
-        alert('Failed to fetch products. Please try again later.');
-      } finally {
         setLoading(false);
       }
     };
-
-    getProducts();
+  
+    fetchProducts();
   }, []);
 
   const handleAddToCart = async (productId) => {
@@ -64,7 +48,7 @@ const ProductsPage = ({ cartId }) => {
       <ProductsContainer>
         {products.map((product) => (
           <ProductCard key={product._id}>
-            <img src={product.imageUrl} alt={product.name} style={{ width: '100%' }} />
+            <img src={`/path/to/images/${product.imageName}`} alt={product.name} style={{ width: '100%' }} />
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <p>${product.price.toFixed(2)}</p>
