@@ -5,11 +5,18 @@ const HomePageContainer = styled.div`
   text-align: center;
 `;
 
+const RoundedImage = styled.img`
+  border-radius: 50%;
+  width: 400px; /* Adjust the width as needed */
+  height: 450px; /* Adjust the height as needed */
+`;
+
 const HomePage = () => {
   return (
     <HomePageContainer>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is the home page of our application. Here you can find various features and information.</p>
+      <h1>Welcome to Sugar Plum</h1>
+      <p>This will be my future site! Check back soon!</p>
+      <RoundedImage src="/Construction.png" alt="Construction" />
     </HomePageContainer>
   );
 };
