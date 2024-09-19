@@ -21,7 +21,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
 
   const customStyle = `
   .navbar-custom {
-    background-color: orange !important;
+    background-color: pink !important;
     z-index: 1050;
   }
 `;
