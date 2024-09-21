@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 8081;
 const dbConnection = require('./dbConnection'); // Ensure this path is correct
 const { errorHandler, requestLogger } = require('./middleware/index'); // Ensure this path is correct

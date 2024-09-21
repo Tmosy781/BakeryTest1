@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const userController = require('../controllers/userController');
 const { authenticateToken, isAdmin } = require('../middleware');
 
