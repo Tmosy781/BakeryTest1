@@ -13,25 +13,11 @@ router.get('/images', async (req, res) => {
   }
 });
 
-// Endpoint to get the Base64-encoded image data by ID
-router.get('/:id/image', async (req, res) => {
+// Endpoint to get an image by imgName
+router.get('/getByName/:imgName', async (req, res) => {
+  const { imgName } = req.params;
   try {
-    const image = await Image.findById(req.params.id);
-    if (!image) {
-      return res.status(404).json({ message: 'Image not found' });
-    }
-    res.status(200).json({ imageData: image.imageData });
-  } catch (error) {
-    console.error('Error fetching image data:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-// Endpoint to get an image by name
-router.get('/getByName/:name', async (req, res) => {
-  const { name } = req.params;
-  try {
-    const image = await Image.findOne({ name: name });
+    const image = await Image.findOne({ imgName: imgName });
     console.log('Retrieved image:', image); // Log the retrieved image object
     if (!image) {
       return res.status(404).json({ error: 'Image not found' });
@@ -43,23 +29,19 @@ router.get('/getByName/:name', async (req, res) => {
   }
 });
 
-// Endpoint to upload an image
-router.post('/upload', async (req, res) => {
+// Endpoint to get an image by imgUrl
+router.get('/getByUrl', async (req, res) => {
+  const { imgUrl } = req.query;
   try {
-    const { name, imageData } = req.body;
-
-    if (!name || !imageData) {
-      return res.status(400).json({ message: 'Missing image name or data' });
+    const image = await Image.findOne({ imgUrl: imgUrl });
+    console.log('Retrieved image:', image); // Log the retrieved image object
+    if (!image) {
+      return res.status(404).json({ error: 'Image not found' });
     }
-
-    // Save the image to the database
-    const newImage = new Image({ name, imageData });
-    await newImage.save();
-
-    res.status(201).json({ message: 'Image uploaded successfully' });
+    res.json(image);
   } catch (error) {
-    console.error('Error uploading image:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error fetching image:', error);
+    res.status(500).json({ error: 'Failed to fetch image' });
   }
 });
 

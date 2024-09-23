@@ -116,10 +116,10 @@ POST http://localhost:8081/products
 Content-Type: application/json
 
 {
-  "name": "Cheesecake",
-  "description": "A delicious cheesecake with strawberry.",
+  "name": "Chocolate Cake",
+  "description": "A delicious chocolate cake with banana.",
   "price": 18.99,
-  "imageUrl": "http://example.com/image.jpg",
+  "imgName": "construction.png",
   "category": "Test Category"
 }
 
@@ -299,10 +299,14 @@ Content-Type: application/json
   "userId": "66e8f14385f1e775bca6bda8"
 }
 
-### Upload Image
-POST http://localhost:8081/api/upload
+### Retrieve all images
+GET http://localhost:8081/api/images
 Content-Type: application/json
 
-{
-  "name": "Sample Image",
-}
+### Retrieve image by name
+GET http://localhost:8081/api/getByName/imageTest.png
+Content-Type: application/json
+
+### Retrieve image by imgUrl
+GET http://localhost:8081/api/getByUrl?imgUrl=https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/Construction.png
+Content-Type: application/json
