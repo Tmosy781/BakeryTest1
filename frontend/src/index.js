@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Updated for React 18
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CartProvider } from './context/CartContext'; // Ensure this path is correct
-import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { CartProvider } from './context/CartContext';
+import { BrowserRouter as Router } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root')); // Updated for React 18
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>

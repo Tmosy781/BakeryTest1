@@ -310,3 +310,45 @@ Content-Type: application/json
 ### Retrieve image by imgUrl
 GET http://localhost:8081/api/getByUrl?imgUrl=https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/Construction.png
 Content-Type: application/json
+
+### Variables
+@baseUrl = http://localhost:8081/api
+@authToken = your_auth_token_here
+
+### Get all products
+GET {{baseUrl}}/products
+
+### Get a single product
+GET {{baseUrl}}/products/product_id_here
+
+### Create a new product (Admin only)
+POST {{baseUrl}}/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI3MTQxODMyLCJleHAiOjE3MjcxNDU0MzJ9.iD10DK_VyjIJs6jcOyQ0DOgB-NjiymmsBDcbsOWuMOo
+Content-Type: application/json
+
+{
+  "name": "Chocolate Chip Cookies",
+  "description": "Delicious homemade chocolate chip cookies",
+  "price": 5.99,
+  "category": "Cookies",
+  "imageId": "66f1b21dfb77074c31127099",
+  "ingredients": ["Flour", "Sugar", "Butter", "Chocolate Chips", "Eggs"],
+  "allergens": ["Wheat", "Dairy", "Eggs"],
+  "inStock": true,
+  "quantity": 50
+}
+
+### Update a product (Admin only)
+PUT {{baseUrl}}/products/66f2187f01ef9ba74aa12e7e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI3MTQxODMyLCJleHAiOjE3MjcxNDU0MzJ9.iD10DK_VyjIJs6jcOyQ0DOgB-NjiymmsBDcbsOWuMOo
+Content-Type: application/json
+
+{
+  "name": "Chocolate Cake",
+  "price": 6.99,
+  "quantity": 40
+}
+
+### Delete a product (Admin only)
+DELETE {{baseUrl}}/products/product_id_here
+Authorization: Bearer {{authToken}}

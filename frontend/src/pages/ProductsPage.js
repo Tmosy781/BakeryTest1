@@ -1,63 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { getProducts, addProductToCart } from '../api/productApi';
-import { ProductsContainer, ProductCard, PageHeading } from '../styles/ProductsPageStyles';
+import axios from 'axios';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useCart } from '../context/CartContext'; // Assuming you have a CartContext
 
-const ProductsPage = ({ cartId }) => {
+const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { addToCart } = useCart(); // Assuming you have this function in your CartContext
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await getProducts();
+        const response = await axios.get('http://localhost:8081/api/products');
         setProducts(response.data);
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+      } catch (err) {
+        setError('Error fetching products. Please try again later.');
         setLoading(false);
       }
     };
-  
+
     fetchProducts();
   }, []);
 
-  const handleAddToCart = async (productId) => {
-    if (!cartId) {
-      alert('You need to be logged in to add products to the cart');
-      return;
-    }
-
-    try {
-      await addProductToCart(cartId, productId, 1);
-      alert('Product added to cart');
-    } catch (error) {
-      console.error('Error adding product to cart:', error);
-      alert('Failed to add product to cart. Please try again later.');
-    }
-  };
-
-  console.log('cartId:', cartId); // Add this line for debugging
-
-  if (loading) {
-    return <div>Loading products...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <PageHeading>Our Baked Products</PageHeading>
-      <ProductsContainer>
+    <Container>
+      <h1 className="my-4">Our Bakery Products</h1>
+      <Row>
         {products.map((product) => (
-          <ProductCard key={product._id}>
-            <img src={`/path/to/images/${product.imageName}`} alt={product.name} style={{ width: '100%' }} />
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>${product.price.toFixed(2)}</p>
-            <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
-          </ProductCard>
+          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+            <Card className="my-3 p-3 rounded">
+              {product.image && (
+                <Card.Img variant="top" src={product.image.imgUrl} alt={product.name} />
+              )}
+              <Card.Body>
+                <Card.Title as="div">
+                  <strong>{product.name}</strong>
+                </Card.Title>
+                <Card.Text as="div">
+                  <p>{product.description}</p>
+                  <p>Category: {product.category}</p>
+                  <p>Ingredients: {product.ingredients.join(', ')}</p>
+                  <p>Allergens: {product.allergens.join(', ')}</p>
+                  <p>In Stock: {product.inStock ? 'Yes' : 'No'}</p>
+                  <p>Quantity: {product.quantity}</p>
+                </Card.Text>
+                <Card.Text as="h3">${product.price.toFixed(2)}</Card.Text>
+                <Button 
+                  onClick={() => addToCart(product)} 
+                  variant="primary" 
+                  disabled={!product.inStock}
+                >
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </ProductsContainer>
-    </div>
+      </Row>
+    </Container>
   );
 };
 
-export default ProductsPage;
+export default ProductPage;
