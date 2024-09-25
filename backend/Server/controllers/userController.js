@@ -2,10 +2,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { newUserValidation } = require('../validation/userValidator');
-
-const generateAccessToken = (id, email, username) => {
-  return jwt.sign({ id, email, username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-};
+const { generateAccessToken } = require('../utilities/generateToken'); // Import the centralized function
 
 const userController = {
   async register(req, res) {
@@ -32,8 +29,8 @@ const userController = {
 
       await newUser.save();
 
-      const accessToken = generateAccessToken(newUser._id, email, username);
-      
+      const accessToken = generateAccessToken(newUser._id, email, username, newUser.isAdmin);
+
       res.status(201).json({ message: "User created successfully", accessToken });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -49,7 +46,7 @@ const userController = {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return res.status(400).json({ message: "Invalid username or password" });
 
-      const accessToken = generateAccessToken(user._id, user.email, user.username);
+      const accessToken = generateAccessToken(user._id, user.email, user.username, user.isAdmin);
       res.json({ accessToken });
     } catch (error) {
       res.status(500).json({ message: error.message });

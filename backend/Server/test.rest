@@ -1,79 +1,8 @@
-POST http://localhost:8081/user/signup
-Content-Type: application/json 
+### Variables
+@baseUrl = http://localhost:8081
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI3Mjg5NzM1LCJleHAiOjE3MjcyOTMzMzV9.wj0HQk6TPZbackClR15NflxXvlvyfZvXcXC_q-PJU2k
+@productId = your_product_id_here
 
-{
-    "username" : "tomtomas",
-    "email" : "tomtomas@gmail.com",
-    "password" : "Viking_Maki1219!@"
-}
-
-###
-
-POST http://localhost:8080/user/login
-Content-Type: application/json 
-
-{
-    "username" : "tochiamanze",
-    "password" : "tochi12345"
-}
-
-###
-GET http://localhost:8081/user/getAll
-Content-Type: application/json
-
-###
-
-POST http://localhost:8081/user/editUser
-Content-Type: application/json 
-
-{
-    "userId" : "635ab8dfc407faf9f73deaf2",
-    "username" : "Tochi Edit",
-    "password" : "dwwrwr"
-}
-
-###
-GET  http://localhost:8081/user/getUserById
-Content-Type: application/json 
-
-{
-    "userId" : "635ab8dfc407faf9f73deaf1"
-}
-
-###
-GET  http://localhost:8081/user/getUserById
-Content-Type: application/json 
-
-{
-    "userId" : "634edb2a16710b2cda6fb370"
-}
-
-###
-POST  http://localhost:8081/user/deleteAll
-
-###
-POST http://localhost:8081/highlight/createHighlight
-Content-Type: application/json
-
-{
-    "userId": "dude_bro44",
-    "lineId": "Blue",
-    "stationId": "Orient Heights"
-}
-
-###
-
-###
-POST http://localhost:8081/favorite
-Content-Type: application/json
-
-{
-  "userId": "jnatola",
-  "line": "Red",
-  "station": "Alewife"
-}
-
-###
 ###
 POST http://localhost:8081/recipe/add
 Content-Type: application/json
@@ -87,7 +16,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8081/recipe/update/66e310f6717e50c6e609a5eb
+PUT {{baseUrl}}}}/recipe/update/66e310f6717e50c6e609a5eb
 Content-Type: application/json
 
 {
@@ -167,8 +96,8 @@ POST http://localhost:8081/users/register
 Content-Type: application/json
 
 {
-  "username": "regular_user45",
-  "email": "user5@example.com",
+  "username": "regular_user1",
+  "email": "user1@example.com",
   "password": "UserPass123!"
 }
 
@@ -197,8 +126,8 @@ Content-Type: application/json
 ###
 
 ### Get All Users (Admin only)
-GET http://localhost:8081/users/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZThmMThkODVmMWU3NzViY2E2YmRhYyIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI2NTQyODEyLCJleHAiOjE3MjY1NDY0MTJ9.O2ofBsff9UJ503DcKq5fmVtYceBsRiWhl3OHWXUMA_0
+GET {{baseUrl}}}}/users/all
+Authorization: Bearer {{authToken}}
 
 ###
 
@@ -236,68 +165,9 @@ Content-Type: application/json
     "newPassword": "NewUserPass456!"
 }
 
-### Get all carts
-GET http://localhost:8081/carts
-Content-Type: application/json
-
 ###
 
-### Get a single cart by ID
-GET http://localhost:8081/carts/{cartId}
-Content-Type: application/json
 
-###
-
-### Create a new cart
-POST http://localhost:8081/carts
-Content-Type: application/json
-
-{
-  "items": [
-    {
-      "productId": "66e8f8fc7934e1e78cd2f724",
-      "quantity": 2
-    }
-  ],
-  "userId": "66e8f14385f1e775bca6bda8"
-}
-
-###
-
-### Update an existing cart by ID
-PUT http://localhost:8081/carts/{cartId}
-Content-Type: application/json
-
-{
-  "items": [
-    {
-      "productId": "VALID_PRODUCT_ID",
-      "quantity": 3
-    }
-  ]
-}
-
-###
-
-### Delete a cart by ID
-DELETE http://localhost:8081/carts/{cartId}
-Content-Type: application/json
-
-### Create a new cart
-POST http://localhost:8081/carts
-Content-Type: application/json
-
-{
-  "customerName": "John Doe",
-  "customerEmail": "john.doe@example.com",
-  "items": [
-    {
-      "productId": "66e8f8fc7934e1e78cd2f724",
-      "quantity": 2
-    }
-  ],
-  "userId": "66e8f14385f1e775bca6bda8"
-}
 
 ### Retrieve all images
 GET http://localhost:8081/api/images
@@ -311,9 +181,7 @@ Content-Type: application/json
 GET http://localhost:8081/api/getByUrl?imgUrl=https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/Construction.png
 Content-Type: application/json
 
-### Variables
-@baseUrl = http://localhost:8081/api
-@authToken = your_auth_token_here
+
 
 ### Get all products
 GET {{baseUrl}}/products
@@ -323,17 +191,17 @@ GET {{baseUrl}}/products/product_id_here
 
 ### Create a new product (Admin only)
 POST {{baseUrl}}/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaWF0IjoxNzI3MTQxODMyLCJleHAiOjE3MjcxNDU0MzJ9.iD10DK_VyjIJs6jcOyQ0DOgB-NjiymmsBDcbsOWuMOo
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "name": "Chocolate Chip Cookies",
-  "description": "Delicious homemade chocolate chip cookies",
-  "price": 5.99,
-  "category": "Cookies",
-  "imageId": "66f1b21dfb77074c31127099",
-  "ingredients": ["Flour", "Sugar", "Butter", "Chocolate Chips", "Eggs"],
-  "allergens": ["Wheat", "Dairy", "Eggs"],
+  "name": "Carrot Cake",
+  "description": "Spiced carrot cake with cream cheese frosting.",
+  "price": 17.99,
+  "category": "Cakes",
+  "imageId": "66f220650036faf320bca9d0",
+  "ingredients": ["Flour", "Sugar", "Butter", "Carrots", "Eggs", "Walnuts"],
+  "allergens": ["Wheat", "Dairy", "Eggs", "Nuts"],
   "inStock": true,
   "quantity": 50
 }
@@ -352,3 +220,52 @@ Content-Type: application/json
 ### Delete a product (Admin only)
 DELETE {{baseUrl}}/products/product_id_here
 Authorization: Bearer {{authToken}}
+
+###
+
+# Add Item to Cart
+POST {{baseUrl}}/cart/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjQ1ZjUxYTMxOWI0MDhhNTNmMDg4NiIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InJlZ3VsYXJfdXNlcjEiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzI3MjkxMjE4LCJleHAiOjE3MjcyOTQ4MTh9.-T4-NMdG9P99E4hLdqUHU7EHSTa9L3SBtZaT3jU-Ulo
+
+{
+  "productId": "66f2187f01ef9ba74aa12e7e",
+  "quantity": 2
+}
+
+###
+
+# Get Current User's Cart
+GET {{baseUrl}}/cart/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjQ1ZjUxYTMxOWI0MDhhNTNmMDg4NiIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InJlZ3VsYXJfdXNlcjEiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzI3MjkxMjE4LCJleHAiOjE3MjcyOTQ4MTh9.-T4-NMdG9P99E4hLdqUHU7EHSTa9L3SBtZaT3jU-Ulo
+
+###
+
+# Update Item Quantities in Cart
+PUT {{baseUrl}}/cart/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjQ1ZjUxYTMxOWI0MDhhNTNmMDg4NiIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InJlZ3VsYXJfdXNlcjEiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzI3MjkxMjE4LCJleHAiOjE3MjcyOTQ4MTh9.-T4-NMdG9P99E4hLdqUHU7EHSTa9L3SBtZaT3jU-Ulo
+
+{
+  "items": [
+    {
+      "productId": "66f2187f01ef9ba74aa12e7e",
+      "quantity": 3
+    }
+    // Add more items as needed
+  ]
+}
+
+###
+
+# Remove an Item from the Cart
+DELETE {{baseUrl}}/cart/remove/{{productId}}
+Authorization: Bearer {{authToken}}
+
+###
+
+# Clear the Cart
+DELETE {{baseUrl}}/cart/clear
+Authorization: Bearer {{authToken}}
+
+###

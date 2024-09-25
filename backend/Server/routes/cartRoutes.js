@@ -1,24 +1,27 @@
-// controllers/cartController.js
+// routes/cartRoutes.js
 
+const express = require('express');
+const router = express.Router();
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
+const { authenticateToken } = require('../middleware');
 
-// Get the current user's cart
-exports.getCart = async (req, res) => {
+// GET the current user's cart
+router.get('/', authenticateToken, async (req, res) => {
   try {
+    console.log('req.user:', req.user); // Debugging line
     const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+});
 
-// Add an item to the cart
-exports.addToCart = async (req, res) => {
+// POST add an item to the cart
+router.post('/add', authenticateToken, async (req, res) => {
   try {
-    console.log('req.user:', req.user);
-    console.log('req.user.id:', req.user.id);
+    console.log('req.user:', req.user); // Debugging line
     const { productId, quantity } = req.body;
 
     // Validate product existence
@@ -50,11 +53,12 @@ exports.addToCart = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+});
 
-// Update item quantities in the cart
-exports.updateCart = async (req, res) => {
+// PUT update item quantities in the cart
+router.put('/update', authenticateToken, async (req, res) => {
   try {
+    console.log('req.user:', req.user); // Debugging line
     const { items } = req.body; // Expecting an array of { productId, quantity }
 
     const cart = await Cart.findOne({ user: req.user.id });
@@ -73,11 +77,12 @@ exports.updateCart = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+});
 
-// Remove an item from the cart
-exports.removeItem = async (req, res) => {
+// DELETE remove an item from the cart
+router.delete('/remove/:productId', authenticateToken, async (req, res) => {
   try {
+    console.log('req.user:', req.user); // Debugging line
     const cart = await Cart.findOne({ user: req.user.id });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
@@ -88,14 +93,17 @@ exports.removeItem = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+});
 
-// Clear the cart
-exports.clearCart = async (req, res) => {
+// DELETE clear the cart
+router.delete('/clear', authenticateToken, async (req, res) => {
   try {
+    console.log('req.user:', req.user); // Debugging line
     await Cart.findOneAndDelete({ user: req.user.id });
     res.status(200).json({ message: 'Cart cleared' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+});
+
+module.exports = router;
