@@ -1,31 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useCart } from '../context/CartContext'; // Assuming you have a CartContext
+import { useCart } from '../context/CartContext';
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { addToCart } = useCart(); // Assuming you have this function in your CartContext
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8081/api/products');
         setProducts(response.data);
-        setLoading(false);
       } catch (err) {
-        setError('Error fetching products. Please try again later.');
-        setLoading(false);
+        console.error('Error fetching products:', err);
       }
     };
 
     fetchProducts();
   }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
     <Container>
@@ -50,9 +43,9 @@ const ProductPage = () => {
                   <p>Quantity: {product.quantity}</p>
                 </Card.Text>
                 <Card.Text as="h3">${product.price.toFixed(2)}</Card.Text>
-                <Button 
-                  onClick={() => addToCart(product)} 
-                  variant="primary" 
+                <Button
+                  onClick={() => addToCart(product._id)} // Pass product._id
+                  variant="primary"
                   disabled={!product.inStock}
                 >
                   Add to Cart

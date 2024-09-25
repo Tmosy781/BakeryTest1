@@ -1,18 +1,24 @@
+// services/auth.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/users'; // Adjust the URL as necessary
-
-export const login = async (email, password) => {
-  const response = await axios.post(`${API_URL}/login`, { email, password });
-  const { token } = response.data;
-  localStorage.setItem('token', token);
-  return response.data;
+export const login = async (username, password) => {
+  try {
+    const response = await axios.post('http://localhost:8081/users/login', {
+      username,
+      password,
+    });
+    const { accessToken } = response.data;
+    localStorage.setItem('accessToken', accessToken); // Store token correctly
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const logout = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem('accessToken'); // Ensure correct token removal on logout
 };
 
 export const getToken = () => {
-  return localStorage.getItem('token');
+  return localStorage.getItem('accessToken');
 };

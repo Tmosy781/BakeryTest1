@@ -7,18 +7,18 @@ import Form from 'react-bootstrap/Form';
 const PRIMARY_COLOR = "#cc5c99";
 const SECONDARY_COLOR = '#0c0c1f';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
+const LoginPage = ({ setIsAuthenticated }) => {
+  const [username, setUsername] = useState(''); // Changed from email to username
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  let labelStyling = {
+  const labelStyling = {
     color: PRIMARY_COLOR,
     fontWeight: "bold",
     textDecoration: "none",
   };
-  let buttonStyling = {
+  const buttonStyling = {
     background: PRIMARY_COLOR,
     borderStyle: "none",
     color: SECONDARY_COLOR,
@@ -27,7 +27,8 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
+      await login(username, password); // Pass username instead of email
+      setIsAuthenticated(true); // Add this line to update authentication state
       navigate('/'); // Redirect to home page after login
     } catch (error) {
       console.error('Login failed', error);
@@ -41,13 +42,13 @@ const LoginPage = () => {
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label style={labelStyling}>Email</Form.Label>
+              <Form.Group className="mb-3" controlId="formBasicUsername">
+                <Form.Label style={labelStyling}>Username</Form.Label>
                 <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
                   required
                 />
               </Form.Group>
@@ -61,12 +62,11 @@ const LoginPage = () => {
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Group className="mb-3">
                 <Form.Text className="text-muted pt-1">
                   Don't have an account?
                   <span>
-                    <Link to="/signup" style={labelStyling}> Sign up
-                    </Link>
+                    <Link to="/signup" style={labelStyling}> Sign up</Link>
                   </span>
                 </Form.Text>
               </Form.Group>

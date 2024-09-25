@@ -127,7 +127,7 @@ Content-Type: application/json
 
 ### Get All Users (Admin only)
 GET {{baseUrl}}}}/users/all
-Authorization: Bearer {{authToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI3Mjk1Mzc3LCJleHAiOjE3MjcyOTg5Nzd9.Jqg18L_-ownesWhFCw3ATK6S-njH2_el-TPEiMV0SLk
 
 ###
 
@@ -151,7 +151,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZThmMThkO
 
 ### Get User Profile
 GET http://localhost:8081/users/profile
-Authorization: Bearer YOUR_TOKEN_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI3Mjk1Mzc3LCJleHAiOjE3MjcyOTg5Nzd9.Jqg18L_-ownesWhFCw3ATK6S-njH2_el-TPEiMV0SLk
 
 ###
 
