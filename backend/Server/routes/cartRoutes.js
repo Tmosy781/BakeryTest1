@@ -4,17 +4,24 @@ const express = require('express');
 const router = express.Router();
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
+const Image = require('../models/imageModel');
 const { authenticateToken } = require('../middleware');
 
 // GET the current user's cart
 router.get('/', authenticateToken, async (req, res) => {
   try {
     console.log('req.user:', req.user); // Debugging line
-    const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
+    const cart = await Cart.findOne({ user: req.user.id })
+      .populate({
+        path: 'items.product',
+        populate: { path: 'image', model: 'Image' } // Nested populate for image
+      })
+      .exec();
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
     res.json(cart);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching cart:', error);
+    res.status(500).json({ message: 'Failed to fetch cart' });
   }
 });
 
@@ -25,7 +32,7 @@ router.post('/add', authenticateToken, async (req, res) => {
     const { productId, quantity } = req.body;
 
     // Validate product existence
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productId).populate('image').exec();
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
     let cart = await Cart.findOne({ user: req.user.id });
@@ -49,8 +56,18 @@ router.post('/add', authenticateToken, async (req, res) => {
     }
 
     const updatedCart = await cart.save();
-    res.status(200).json({ message: 'Item added to cart', cart: updatedCart });
+
+    // Populate the updated cart before sending the response
+    const populatedCart = await Cart.findById(updatedCart._id)
+      .populate({
+        path: 'items.product',
+        populate: { path: 'image', model: 'Image' }
+      })
+      .exec();
+
+    res.status(200).json({ message: 'Item added to cart', cart: populatedCart });
   } catch (error) {
+    console.error('Error adding to cart:', error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -89,9 +106,19 @@ router.delete('/remove/:productId', authenticateToken, async (req, res) => {
     cart.items = cart.items.filter(item => item.product.toString() !== req.params.productId);
 
     const updatedCart = await cart.save();
-    res.status(200).json({ message: 'Item removed from cart', cart: updatedCart });
+
+    // Populate the updated cart before sending the response
+    const populatedCart = await Cart.findById(updatedCart._id)
+      .populate({
+        path: 'items.product',
+        populate: { path: 'image', model: 'Image' }
+      })
+      .exec();
+
+    res.status(200).json({ message: 'Item removed from cart', cart: populatedCart });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error removing item from cart:', error);
+    res.status(500).json({ message: 'Failed to remove item from cart' });
   }
 });
 

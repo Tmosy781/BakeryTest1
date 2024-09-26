@@ -1,9 +1,11 @@
+// src/pages/ProductsPage.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 
-const ProductPage = () => {
+const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
 
@@ -59,4 +61,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductsPage;
