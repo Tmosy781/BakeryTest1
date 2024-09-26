@@ -35,9 +35,33 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // Function to remove an item from the cart
+  const removeFromCart = async (productId) => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        alert('Please log in to manage your cart.');
+        return;
+      }
+
+      const response = await axios.delete(`http://localhost:8081/cart/remove/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCart(response.data.cart);
+      alert('Item removed from cart!');
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+      alert('Failed to remove item from cart.');
+    }
+  };
+
   const value = {
     cart,
     addToCart,
+    removeFromCart, // Add removeFromCart to the context value
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

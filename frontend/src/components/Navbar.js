@@ -4,9 +4,12 @@ import Nav from 'react-bootstrap/Nav';
 import ReactNavbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext'; // Import CartContext
 
 const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const navigate = useNavigate();
+  const { cart } = useCart(); // Get cart data from context
+  const itemCount = cart ? cart.items.reduce((sum, item) => sum + item.quantity, 0) : 0; // Calculate item count
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -32,6 +35,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
           </Nav>
           {isAuthenticated ? (
             <Nav className="ml-auto">
+              <Nav.Link as={Link} to="/cart">Cart ({itemCount})</Nav.Link> {/* Cart link with item count */}
               <NavDropdown title="Profile" id="profile-nav-dropdown">
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
