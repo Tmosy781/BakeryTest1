@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/auth';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useCart } from '../context/CartContext'; // Import useCart
 
 const PRIMARY_COLOR = "#cc5c99";
 const SECONDARY_COLOR = '#0c0c1f';
@@ -12,6 +13,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { fetchCart } = useCart(); // Get fetchCart from context
 
   const labelStyling = {
     color: PRIMARY_COLOR,
@@ -28,7 +30,8 @@ const LoginPage = ({ setIsAuthenticated }) => {
     e.preventDefault();
     try {
       await login(username, password); // Pass username instead of email
-      setIsAuthenticated(true); // Add this line to update authentication state
+      setIsAuthenticated(true); // Update authentication state
+      await fetchCart(); // Fetch the cart after login
       navigate('/'); // Redirect to home page after login
     } catch (error) {
       console.error('Login failed', error);

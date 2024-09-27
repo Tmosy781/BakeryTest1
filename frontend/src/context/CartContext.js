@@ -93,6 +93,7 @@ export const CartProvider = ({ children }) => {
     cart,
     addToCart,
     removeFromCart,
+    fetchCart, // Optional: expose fetchCart if needed elsewhere
   };
 
   return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
