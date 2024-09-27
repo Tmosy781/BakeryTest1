@@ -96,9 +96,9 @@ POST http://localhost:8081/users/register
 Content-Type: application/json
 
 {
-  "username": "regular_user1",
-  "email": "user1@example.com",
-  "password": "UserPass123!"
+  "username": "testuser2",
+  "email": "user2@example.com",
+  "password": "password123"
 }
 
 ###

@@ -5,9 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
-import CartPage from './pages/CartPage';  // Import the CartPage
-import ImageUpload from './components/ImageUpload';
-import ImagesDisplay from './components/ImagesDisplay';
+import CartPage from './pages/CartPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,9 +24,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/loginPage" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/cart" element={<CartPage />} /> {/* Add CartPage route */}
-        <Route path="/upload" element={<ImageUpload />} />
-        <Route path="/images" element={<ImagesDisplay />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </CartProvider>
   );
