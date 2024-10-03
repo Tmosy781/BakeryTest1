@@ -68,7 +68,7 @@ const CartPage = () => {
       </ListGroup>
       <h3>Total: ${totalPrice.toFixed(2)}</h3>
       <Button variant="primary" href="/checkout">
-        Proceed to Checkout
+        Submit Order
       </Button>
     </Container>
   );
