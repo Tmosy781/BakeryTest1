@@ -1,14 +1,13 @@
-// src/pages/CartPage.js
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Container, ListGroup, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-  const { cart, removeFromCart } = useCart();
-
-  // Debugging: Log cart data to verify structure
-  console.log('Cart Data:', cart);
+  const { cart, removeFromCart, clearCart } = useCart();
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   if (!cart || !cart.items || cart.items.length === 0) {
     return <div>Your cart is empty</div>;
@@ -19,14 +18,52 @@ const CartPage = () => {
     0
   );
 
+  const handleSubmitOrder = async () => {
+    try {
+      console.log('Cart Items:', cart.items); // Debugging line
+
+      const orderData = {
+        items: cart.items.map((item) => ({
+          product: item.product._id || item.product, // Adjusted line
+          quantity: item.quantity,
+        })),
+        totalAmount: totalPrice,
+      };
+
+      console.log('Order Data:', orderData); // Debugging line
+
+      const token = localStorage.getItem('accessToken');
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+
+      const response = await axios.post(`${API_URL}/orders`, orderData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('Order created:', response.data);
+      clearCart();
+      navigate('/order-confirmation');
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        setError('Your session has expired. Please log in again.');
+        navigate('/login');
+      } else if (err.response && err.response.status === 403) {
+        setError('You are not authorized to perform this action.');
+      } else {
+        setError('Failed to submit order. Please try again.');
+      }
+      console.error('Error submitting order:', err);
+    }
+  };
+
   return (
     <Container>
       <h1>Your Cart</h1>
       <ListGroup>
         {cart.items.map((item) => (
-          <ListGroup.Item key={item._id}> {/* Use item's own _id for uniqueness */}
+          <ListGroup.Item key={item._id}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {/* Display Product Image */}
               {item.product.image && item.product.image.imgUrl ? (
                 <img
                   src={item.product.image.imgUrl}
@@ -49,13 +86,11 @@ const CartPage = () => {
                   No Image
                 </div>
               )}
-              {/* Display Product Details */}
               <div style={{ flex: 1 }}>
                 <strong>{item.product.name || 'Product Name'}</strong>
                 <div>Quantity: {item.quantity}</div>
                 <div>Price: ${(item.product.price * item.quantity).toFixed(2)}</div>
               </div>
-              {/* Remove Button */}
               <Button
                 variant="danger"
                 onClick={() => removeFromCart(item.product._id)}
@@ -67,7 +102,8 @@ const CartPage = () => {
         ))}
       </ListGroup>
       <h3>Total: ${totalPrice.toFixed(2)}</h3>
-      <Button variant="primary" href="/checkout">
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <Button variant="primary" onClick={handleSubmitOrder}>
         Submit Order
       </Button>
     </Container>

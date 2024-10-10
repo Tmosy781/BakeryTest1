@@ -23,7 +23,6 @@ const LoginPage = ({ setIsAuthenticated }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { fetchCart } = useCart();
 
   const labelStyling = {
     color: PRIMARY_COLOR,
@@ -36,18 +35,21 @@ const LoginPage = ({ setIsAuthenticated }) => {
     color: SECONDARY_COLOR,
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await login(username, password);
-      setIsAuthenticated(true);
-      await fetchCart();
-      navigate('/');
-    } catch (error) {
-      console.error('Login failed', error);
-      setError('Login failed. Please check your credentials and try again.');
-    }
-  };
+  const { fetchCart } = useCart();
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await login(username, password);
+    setIsAuthenticated(true);
+    await fetchCart(); // Now fetchCart should be defined and work properly
+    navigate('/');
+  } catch (error) {
+    console.error('Login failed', error);
+    setError('Login failed. Please check your credentials and try again.');
+  }
+};
+
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -65,7 +67,6 @@ const LoginPage = ({ setIsAuthenticated }) => {
           password: signUpPassword,
         }),
       });
-      
 
       const data = await response.json();
 
@@ -73,11 +74,12 @@ const LoginPage = ({ setIsAuthenticated }) => {
         throw new Error(data.message || 'Registration failed');
       }
 
+      // Store the token consistently
       localStorage.setItem('token', data.accessToken);
       setIsAuthenticated(true);
       await fetchCart();
       setShowSignUpModal(false);
-      navigate('/loginPage');
+      navigate('/login'); // Corrected the path
     } catch (error) {
       console.error('Registration failed', error);
       setSignUpError(error.message);

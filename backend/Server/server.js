@@ -12,6 +12,7 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const imageRoutes = require('./routes/imageRoutes');
 const cartRoutes = require('./routes/cartRoutes'); // Import cartRoutes
+const orderRoutes = require('./routes/orderRoutes');
 
 // Middleware
 app.use(express.json({ limit: '50mb' }));
@@ -25,6 +26,8 @@ app.use('/api/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/api', imageRoutes);
 app.use('/cart', cartRoutes); // Use cartRoutes
+app.use('/api/orders', orderRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

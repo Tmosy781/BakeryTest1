@@ -1,5 +1,4 @@
 // src/context/CartContext.js
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,27 +8,28 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState({ items: [] }); // Initialize with an empty cart
+  const [cart, setCart] = useState({ items: [] });
 
   // Function to fetch cart data from the backend
   const fetchCart = async () => {
     try {
-      const token = localStorage.getItem('accessToken'); // Retrieve token from localStorage
+      const token = localStorage.getItem('accessToken');
       if (!token) {
-        setCart({ items: [] }); // Set cart to empty if no token
+        setCart({ items: [] });
         return;
       }
 
-      const response = await axios.get('http://localhost:8081/cart', {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+      const response = await axios.get(`${API_URL}/cart`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      setCart(response.data); // Assuming backend sends the cart object directly
+      setCart(response.data);
     } catch (error) {
       console.error('Error fetching cart:', error);
-      setCart({ items: [] }); // Set cart to empty on error
+      setCart({ items: [] });
     }
   };
 
@@ -41,51 +41,74 @@ export const CartProvider = ({ children }) => {
   // Function to add an item to the cart
   const addToCart = async (productId, quantity = 1) => {
     try {
-      const token = localStorage.getItem('accessToken'); // Retrieve token from localStorage
+      const token = localStorage.getItem('accessToken');
       if (!token) {
         alert('Please log in to add items to your cart.');
         return;
       }
 
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+      console.log('Adding to cart:', { productId, quantity }); // Debugging line
       const response = await axios.post(
-        'http://localhost:8081/cart/add',
-        { productId, quantity }, // Payload
+        `${API_URL}/cart/add`,
+        { productId, quantity },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Add Authorization header
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      setCart(response.data.cart); // Update cart with the response
+      setCart(response.data.cart);
       alert('Item added to cart!');
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      alert('Failed to add item to cart.');
+      if (error.response) {
+        console.error('Error adding to cart:', error.response.data);
+        alert(`Failed to add item to cart: ${error.response.data.message || 'Unknown error'}`);
+      } else if (error.request) {
+        console.error('Error adding to cart: No response received:', error.request);
+        alert('Failed to add item to cart: No response from server.');
+      } else {
+        console.error('Error adding to cart:', error.message);
+        alert(`Failed to add item to cart: ${error.message}`);
+      }
     }
   };
 
   // Function to remove an item from the cart
   const removeFromCart = async (productId) => {
     try {
-      const token = localStorage.getItem('accessToken'); // Retrieve token from localStorage
+      const token = localStorage.getItem('accessToken');
       if (!token) {
         alert('Please log in to manage your cart.');
         return;
       }
 
-      const response = await axios.delete(`http://localhost:8081/cart/remove/${productId}`, {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+      const response = await axios.delete(`${API_URL}/cart/remove/${productId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Add Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      setCart(response.data.cart); // Update cart with the response
+      setCart(response.data.cart);
       alert('Item removed from cart!');
     } catch (error) {
-      console.error('Error removing item from cart:', error);
-      alert('Failed to remove item from cart.');
+      if (error.response) {
+        console.error('Error removing item from cart:', error.response.data);
+        alert(`Failed to remove item from cart: ${error.response.data.message || 'Unknown error'}`);
+      } else if (error.request) {
+        console.error('Error removing item from cart: No response received:', error.request);
+        alert('Failed to remove item from cart: No response from server.');
+      } else {
+        console.error('Error removing item from cart:', error.message);
+        alert(`Failed to remove item from cart: ${error.message}`);
+      }
     }
+  };
+
+  const clearCart = () => {
+    setCart({ items: [] });
   };
 
   // The context value that will be supplied to any descendants of this component
@@ -93,10 +116,15 @@ export const CartProvider = ({ children }) => {
     cart,
     addToCart,
     removeFromCart,
-    fetchCart, // Optional: expose fetchCart if needed elsewhere
+    clearCart,
+    fetchCart,
   };
 
-  return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={contextValue}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export default CartContext;

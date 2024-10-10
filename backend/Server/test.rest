@@ -85,9 +85,9 @@ POST http://localhost:8081/users/register
 Content-Type: application/json
 
 {
-  "username": "admin_user",
-  "email": "admin3@example.com",
-  "password": "AdminPass123!",
+  "username": "tmosy781",
+  "email": "tmosy781@example.com",
+  "password": "password123!@",
   "isAdmin": true
 }
 
@@ -119,8 +119,8 @@ POST http://localhost:8081/users/login
 Content-Type: application/json 
 
 {
-    "username": "regular_user1",
-    "password": "UserPass123!"
+    "username": "bobbob",
+    "password": "password123"
 }
 
 ###
@@ -269,3 +269,47 @@ DELETE {{baseUrl}}/cart/clear
 Authorization: Bearer {{authToken}}
 
 ###
+
+### Variables
+@baseUrl = http://localhost:8081/api
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZmRmOWMxYWI0MzQ4NmY5MzU4Mzk4YSIsImVtYWlsIjoiYm9iYm9iQGJvYmJvYi5jb20iLCJ1c2VybmFtZSI6ImJvYmJvYiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3Mjc5NjgzOTAsImV4cCI6MTcyNzk3MTk5MH0.MXfcqfw-kZDOMpYFaAUnpPmTqvEcP8ozPxjZRtt4fRE
+
+### Create a new order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "items": [
+    {
+      "product": "66f2187f01ef9ba74aa12e7e",
+      "quantity": 2
+    },
+    {
+      "product": "66f220f633819e7fb7f2a541",
+      "quantity": 1
+    }
+  ],
+  "totalAmount": 29.99
+}
+
+### Get all orders (admin only)
+GET {{baseUrl}}/orders
+Authorization: Bearer {{authToken}}
+
+### Get a specific order
+GET {{baseUrl}}/orders/ORDER_ID_HERE
+Authorization: Bearer {{authToken}}
+
+### Update order status (admin only)
+PUT {{baseUrl}}/orders/ORDER_ID_HERE/status
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "status": "In the Oven"
+}
+
+### Delete an order (admin only)
+DELETE {{baseUrl}}/orders/ORDER_ID_HERE
+Authorization: Bearer {{authToken}}
