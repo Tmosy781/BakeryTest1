@@ -9,6 +9,8 @@ Order processing
 Recipe management
 Image upload and retrieval
 
+For frontend styling, I am using TailwindCSS.
+
 Prerequisites
 Before you begin, ensure you have met the following requirements:
 
