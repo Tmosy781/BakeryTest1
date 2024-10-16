@@ -149,9 +149,9 @@ exports.removeItem = async (req, res) => {
 exports.clearCart = async (req, res) => {
   try {
     await Cart.findOneAndDelete({ user: req.user.id });
-    res.status(200).json({ message: 'Cart cleared' });
+    res.status(200).json({ message: 'Cart cleared successfully' });
   } catch (error) {
     console.error('Error clearing cart:', error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Failed to clear cart' });
   }
 };

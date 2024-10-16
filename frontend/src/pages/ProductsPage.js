@@ -41,7 +41,6 @@ const ProductsPage = () => {
                   <p>Category: {product.category}</p>
                   <p>Ingredients: {product.ingredients.join(', ')}</p>
                   <p>Allergens: {product.allergens.join(', ')}</p>
-                  <p>In Stock: {product.inStock ? 'Yes' : 'No'}</p>
                   <p>Quantity: {product.quantity}</p>
                 </Card.Text>
                 <Card.Text as="h3">${product.price.toFixed(2)}</Card.Text>

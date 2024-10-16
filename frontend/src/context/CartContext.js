@@ -1,16 +1,13 @@
-// src/context/CartContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const CartContext = createContext();
 
-// Custom hook to use the CartContext
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({ items: [] });
 
-  // Function to fetch cart data from the backend
   const fetchCart = async () => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -33,12 +30,10 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Fetch cart data when the component mounts
   useEffect(() => {
     fetchCart();
   }, []);
 
-  // Function to add an item to the cart
   const addToCart = async (productId, quantity = 1) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -48,7 +43,6 @@ export const CartProvider = ({ children }) => {
       }
 
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
-      console.log('Adding to cart:', { productId, quantity }); // Debugging line
       const response = await axios.post(
         `${API_URL}/cart/add`,
         { productId, quantity },
@@ -62,20 +56,11 @@ export const CartProvider = ({ children }) => {
       setCart(response.data.cart);
       alert('Item added to cart!');
     } catch (error) {
-      if (error.response) {
-        console.error('Error adding to cart:', error.response.data);
-        alert(`Failed to add item to cart: ${error.response.data.message || 'Unknown error'}`);
-      } else if (error.request) {
-        console.error('Error adding to cart: No response received:', error.request);
-        alert('Failed to add item to cart: No response from server.');
-      } else {
-        console.error('Error adding to cart:', error.message);
-        alert(`Failed to add item to cart: ${error.message}`);
-      }
+      console.error('Error adding to cart:', error);
+      alert('Failed to add item to cart.');
     }
   };
 
-  // Function to remove an item from the cart
   const removeFromCart = async (productId) => {
     try {
       const token = localStorage.getItem('accessToken');
@@ -94,34 +79,35 @@ export const CartProvider = ({ children }) => {
       setCart(response.data.cart);
       alert('Item removed from cart!');
     } catch (error) {
-      if (error.response) {
-        console.error('Error removing item from cart:', error.response.data);
-        alert(`Failed to remove item from cart: ${error.response.data.message || 'Unknown error'}`);
-      } else if (error.request) {
-        console.error('Error removing item from cart: No response received:', error.request);
-        alert('Failed to remove item from cart: No response from server.');
-      } else {
-        console.error('Error removing item from cart:', error.message);
-        alert(`Failed to remove item from cart: ${error.message}`);
-      }
+      console.error('Error removing item from cart:', error);
+      alert('Failed to remove item from cart.');
     }
   };
 
-  const clearCart = () => {
-    setCart({ items: [] });
-  };
+  const clearCart = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        setCart({ items: [] });
+        return;
+      }
 
-  // The context value that will be supplied to any descendants of this component
-  const contextValue = {
-    cart,
-    addToCart,
-    removeFromCart,
-    clearCart,
-    fetchCart,
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+      await axios.delete(`${API_URL}/cart/clear`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCart({ items: [] });
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      alert('Failed to clear cart.');
+    }
   };
 
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, fetchCart }}>
       {children}
     </CartContext.Provider>
   );
