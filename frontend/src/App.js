@@ -7,9 +7,9 @@ import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
 import CartPage from './pages/CartPage';
 import OrderConfirmation from './pages/OrderConfirmation';
-import OrderPage from './pages/OrderPage'; // Corrected import path
-import OrderDetailPage from './pages/OrderDetailPage'; // Corrected import path
-import PrivateRoute from './components/PrivateRoute'; // New component
+import OrderPage from './pages/OrderPage';
+import OrderDetailPage from './pages/OrderDetailPage';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

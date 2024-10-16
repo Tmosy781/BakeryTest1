@@ -108,8 +108,8 @@ POST http://localhost:8081/users/login
 Content-Type: application/json 
 
 {
-    "username": "admin_user",
-    "password": "AdminPass123!"
+    "username": "tmosy781",
+    "password": "password123!@"
 }
 
 ###
@@ -272,7 +272,7 @@ Authorization: Bearer {{authToken}}
 
 ### Variables
 @baseUrl = http://localhost:8081/api
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZmRmOWMxYWI0MzQ4NmY5MzU4Mzk4YSIsImVtYWlsIjoiYm9iYm9iQGJvYmJvYi5jb20iLCJ1c2VybmFtZSI6ImJvYmJvYiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3Mjc5NjgzOTAsImV4cCI6MTcyNzk3MTk5MH0.MXfcqfw-kZDOMpYFaAUnpPmTqvEcP8ozPxjZRtt4fRE
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MDQ0NDU0LCJleHAiOjE3MjkwNDgwNTR9.gG-u628J9HRbNSuxZ9JiZSKgKs8YEMHDHPasxYnEkh4
 
 ### Create a new order
 POST {{baseUrl}}/orders

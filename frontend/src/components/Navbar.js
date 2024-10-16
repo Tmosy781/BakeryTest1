@@ -42,13 +42,14 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                 </svg>
                 ({itemCount})
               </Nav.Link>
+              <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
               <NavDropdown title="Profile" id="profile-nav-dropdown">
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           ) : (
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/login">Login</Nav.Link> {/* Updated path */}
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
             </Nav>
           )}
         </Container>

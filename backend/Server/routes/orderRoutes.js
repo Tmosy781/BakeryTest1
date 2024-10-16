@@ -21,4 +21,6 @@ router.put('/:id/status', authenticateToken, isAdmin, orderController.updateOrde
 // Delete an order (admin only)
 router.delete('/:id', authenticateToken, isAdmin, orderController.deleteOrder);
 
+router.put('/:id/cancel', authenticateToken, orderController.cancelOrder);
+
 module.exports = router;
