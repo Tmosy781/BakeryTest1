@@ -37,10 +37,11 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  quantity: {
+  maxOrderQuantity: {
     type: Number,
-    default: 0,
-    min: 0
+    default: 5,
+    min: 1,
+    max: 5
   }
 }, { timestamps: true });
 

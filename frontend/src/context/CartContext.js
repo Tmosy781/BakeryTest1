@@ -106,11 +106,20 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const contextValue = {
+    cart,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    fetchCart,
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, fetchCart }}>
+    <CartContext.Provider value={contextValue}>
       {children}
     </CartContext.Provider>
   );
 };
+
 
 export default CartContext;
