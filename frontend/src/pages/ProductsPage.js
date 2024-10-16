@@ -65,7 +65,7 @@ const ProductsPage = ({ isAdmin }) => {
         {products.map((product) => (
           <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden">
             {product.image && (
-              <img className="w-full h-48 object-cover" src={product.image.imgUrl} alt={product.name} />
+              <img className="w-full h-47 object-cover" src={product.image.imgUrl} alt={product.name} />
             )}
             <div className="p-4">
               {editMode[product._id] ? (
@@ -100,7 +100,6 @@ const ProductsPage = ({ isAdmin }) => {
                   <p className="text-sm text-gray-500">Category: {product.category}</p>
                   <p className="text-sm text-gray-500">Ingredients: {product.ingredients.join(', ')}</p>
                   <p className="text-sm text-gray-500">Allergens: {product.allergens.join(', ')}</p>
-                  <p className="text-sm text-gray-500">In Stock: {product.inStock ? 'Yes' : 'No'}</p>
                   <p className="text-lg font-bold mt-2">
                     ${typeof product.price === 'number'
                       ? product.price.toFixed(2)
