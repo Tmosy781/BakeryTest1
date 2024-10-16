@@ -32,7 +32,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/products">Products</Nav.Link>
-            <Nav.Link as={Link} to="/about">Contact Us</Nav.Link>
+            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
           </Nav>
           {isAuthenticated ? (
             <Nav className="ms-auto">

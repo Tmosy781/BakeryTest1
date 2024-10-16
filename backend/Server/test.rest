@@ -191,16 +191,16 @@ GET {{baseUrl}}/products/product_id_here
 
 ### Create a new product (Admin only)
 POST {{baseUrl}}/products
-Authorization: Bearer {{authToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MDk0Mjc1LCJleHAiOjE3MjkwOTc4NzV9.9x2C8tE3yq1eoBsPkWda0Etp-W7Pk4tfug04h3qfg2Y
 Content-Type: application/json
 
 {
-  "name": "Carrot Cake",
-  "description": "Spiced carrot cake with cream cheese frosting.",
-  "price": 17.99,
-  "category": "Cakes",
-  "imageId": "66f220650036faf320bca9d0",
-  "ingredients": ["Flour", "Sugar", "Butter", "Carrots", "Eggs", "Walnuts"],
+  "name": "Banana Bread",
+  "description": "Moist, flavorful banana bread made with ripe bananas ans walnuts, perfect for anytime of day!",
+  "price": 9.89,
+  "category": "Breads",
+  "imageId": "670fde1aef76d17421dc66d1",
+  "ingredients": ["Flour", "Sugar", "Butter", "Banana", "Eggs", "Walnuts", "Vanilla Extract"],
   "allergens": ["Wheat", "Dairy", "Eggs", "Nuts"],
   "inStock": true,
   "quantity": 50
