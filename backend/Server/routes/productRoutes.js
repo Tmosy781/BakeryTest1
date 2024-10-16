@@ -34,7 +34,6 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
     image: req.body.imageId,
     ingredients: req.body.ingredients,
     allergens: req.body.allergens,
-    inStock: req.body.inStock,
     maxOrderQuantity: req.body.maxOrderQuantity || 5 // Default to 5 if not provided
   });
 
@@ -63,7 +62,7 @@ router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
     product.image = req.body.imageId || product.image;
     product.ingredients = req.body.ingredients || product.ingredients;
     product.allergens = req.body.allergens || product.allergens;
-    product.inStock = req.body.inStock !== undefined ? req.body.inStock : product.inStock;
+    
     
     // Handle maxOrderQuantity
     if (req.body.maxOrderQuantity !== undefined) {

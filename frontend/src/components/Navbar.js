@@ -38,7 +38,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
               </Link>
               <Link to="/orders" className="text-black hover:text-gray-700">Orders</Link>
               <div className="relative">
-                <button 
+                <button
                   onClick={toggleProfile}
                   className="text-black hover:text-gray-700 focus:outline-none"
                 >
@@ -46,13 +46,12 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                 </button>
                 {isProfileOpen && (
                   <div className="absolute right-0 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
-                    <a 
-                      href="#" 
-                      onClick={handleLogout} 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Logout
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>

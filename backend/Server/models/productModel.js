@@ -33,10 +33,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: true
   }],
-  inStock: {
-    type: Boolean,
-    default: true
-  },
   maxOrderQuantity: {
     type: Number,
     default: 5,

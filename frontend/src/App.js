@@ -10,25 +10,30 @@ import OrderConfirmation from './pages/OrderConfirmation';
 import OrderPage from './pages/OrderPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import PrivateRoute from './components/PrivateRoute';
+import getUserInfo from './utilities/decodeJwt';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    setIsAuthenticated(!!token);
+    const userInfo = getUserInfo();
+    setIsAuthenticated(!!userInfo);
   }, []);
+
+  const checkIsAdmin = () => {
+    const userInfo = getUserInfo();
+    return userInfo ? userInfo.isAdmin : false;
+  };
 
   return (
     <CartProvider>
-      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} isAdmin={checkIsAdmin()} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products" element={<ProductsPage isAdmin={checkIsAdmin()} />} />
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
-
         {/* Protected Routes */}
         <Route
           path="/orders"
