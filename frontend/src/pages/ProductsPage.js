@@ -75,7 +75,7 @@ const ProductsPage = ({ isAdmin }) => {
                     name="name"
                     value={editedProduct.name}
                     onChange={handleEditChange}
-                    className="w-full mb-2 p-2 border rounded"
+                    className="w-full mb-2 p-2 border rounded text-center"
                   />
                   <textarea
                     name="description"
@@ -95,7 +95,7 @@ const ProductsPage = ({ isAdmin }) => {
                 </form>
               ) : (
                 <>
-                  <h2 className="text-xl font-semibold">{product.name}</h2>
+                  <h2 className="text-xl font-semibold text-center mb-2">{product.name}</h2>
                   <p className="text-gray-600">{product.description}</p>
                   <p className="text-sm text-gray-500">Category: {product.category}</p>
                   <p className="text-sm text-gray-500">Ingredients: {product.ingredients.join(', ')}</p>
