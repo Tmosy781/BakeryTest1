@@ -1,13 +1,6 @@
-.pastel-rainbow-gradient {
-  background: linear-gradient(
-    to right,
-    #ffecd2 0%,    /* Pastel Orange */
-    #fcb69f 20%,   /* Pastel Pink */
-    #ffecd2 40%,   /* Pastel Yellow */
-    #d5e1df 60%,   /* Pastel Green */
-    #b5e7e7 80%,   /* Pastel Blue */
-    #c7ceea 100%   /* Pastel Purple */
-  );
-  background-size: 100% 100%;
-  background-attachment: fixed;
+.multiple-backgrounds {
+  background: 
+    radial-gradient(circle at top left, rgba(255,154,158,0.5) 0%, transparent 50%),
+    radial-gradient(circle at bottom right, rgba(255,209,196,0.5) 0%, transparent 50%),
+    linear-gradient(to right, #fad0c4, #ffd1ff);
 }

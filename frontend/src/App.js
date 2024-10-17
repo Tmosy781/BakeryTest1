@@ -11,7 +11,7 @@ import OrderPage from './pages/OrderPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import PrivateRoute from './components/PrivateRoute';
 import getUserInfo from './utilities/decodeJwt';
-import './background-styles.css'; // Updated import for the renamed CSS file
+import './background-styles.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen pastel-rainbow-gradient">
+      <div className="min-h-screen multiple-backgrounds">
         <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} isAdmin={checkIsAdmin()} />
         <Routes>
           <Route path="/" element={<HomePage />} />
