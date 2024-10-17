@@ -191,19 +191,19 @@ GET {{baseUrl}}/products/product_id_here
 
 ### Create a new product (Admin only)
 POST {{baseUrl}}/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MDk0Mjc1LCJleHAiOjE3MjkwOTc4NzV9.9x2C8tE3yq1eoBsPkWda0Etp-W7Pk4tfug04h3qfg2Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTM0OTk0LCJleHAiOjE3MjkxMzg1OTR9.TcDHOrjdVpzIF9038U9ueu_Y3b4pccqOmKXWDcfdTE8
 Content-Type: application/json
 
 {
-  "name": "Banana Bread",
-  "description": "Moist, flavorful banana bread made with ripe bananas ans walnuts, perfect for anytime of day!",
-  "price": 9.89,
-  "category": "Breads",
-  "imageId": "670fde1aef76d17421dc66d1",
-  "ingredients": ["Flour", "Sugar", "Butter", "Banana", "Eggs", "Walnuts", "Vanilla Extract"],
-  "allergens": ["Wheat", "Dairy", "Eggs", "Nuts"],
+  "name": "Blueberry Crumble",
+  "description": "A warm, juicy blueberry crumble topped with a golden, buttery streusel that delivers a perfect mix of sweet and tart in every bite..",
+  "price": 12.99,
+  "category": "Pastries",
+  "imageId": "670fde14ef76d17421dc66cf",
+  "ingredients": ["Flour", "Sugar", "Brown Sugar", "Lemon Juice", "Butter", "Salt", "Fresh Blueberries", "Cinnamon", "Oats"],
+  "allergens": ["Gluten", "Dairy", "Nuts"],
   "inStock": true,
-  "quantity": 50
+  "maxOrderQuantity": 5
 }
 
 ### Update a product (Admin only)

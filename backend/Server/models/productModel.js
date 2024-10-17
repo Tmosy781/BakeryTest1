@@ -38,9 +38,12 @@ const productSchema = new mongoose.Schema({
     default: 5,
     min: 1,
     max: 5
+  },
+  inStock: {
+    type: Boolean,
+    default: true
   }
 }, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);
-
 module.exports = Product;
