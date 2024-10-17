@@ -124,7 +124,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
             </button>
           </div>
         </form>
-
+        
         <div className="animate-shake text-sm">
           <span className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={() => setShowSignUpModal(true)}>
             Don't have an account? Sign up

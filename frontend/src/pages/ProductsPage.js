@@ -63,13 +63,13 @@ const ProductsPage = ({ isAdmin }) => {
       <h1 className="text-2xl font-bold my-4">Our Bakery Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {products.map((product) => (
-          <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col h-full">
             {product.image && (
               <img className="w-full h-47 object-cover" src={product.image.imgUrl} alt={product.name} />
             )}
-            <div className="p-4">
+            <div className="p-4 flex flex-col flex-grow">
               {editMode[product._id] ? (
-                <form onSubmit={handleEditSubmit}>
+                <form onSubmit={handleEditSubmit} className="flex flex-col flex-grow">
                   <input
                     type="text"
                     name="name"
@@ -96,50 +96,47 @@ const ProductsPage = ({ isAdmin }) => {
               ) : (
                 <>
                   <h2 className="text-xl font-semibold text-center mb-2">{product.name}</h2>
-                  <p className="text-gray-600">{product.description}</p>
-                  <p className="text-sm text-gray-500">Category: {product.category}</p>
-                  <p className="text-sm text-gray-500">Ingredients: {product.ingredients.join(', ')}</p>
-                  <p className="text-sm text-gray-500">Allergens: {product.allergens.join(', ')}</p>
-                  <p className="text-lg font-bold mt-2">
-                    ${typeof product.price === 'number'
-                      ? product.price.toFixed(2)
-                      : 'Price not available'}
+                  <p className="text-gray-600 mb-2">{product.description}</p>
+                  <p className="text-sm text-gray-500 mb-1">Category: {product.category}</p>
+                  <p className="text-sm text-gray-500 mb-1">Ingredients: {product.ingredients.join(', ')}</p>
+                  <p className="text-sm text-gray-500 mb-2">Allergens: {product.allergens.join(', ')}</p>
+                  <p className="text-lg font-bold mb-4">
+                    ${typeof product.price === 'number' ? product.price.toFixed(2) : 'Price not available'}
                   </p>
-
-                  <div className="mt-4">
-                    <label htmlFor={`quantity-${product._id}`} className="block text-sm font-medium text-gray-700">
-                      Quantity:
-                    </label>
-                    <select
-                      id={`quantity-${product._id}`}
-                      value={quantities[product._id]}
-                      onChange={(e) => handleQuantityChange(product._id, parseInt(e.target.value))}
-                      className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                    >
-                      {[...Array(product.maxOrderQuantity)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    disabled={!product.inStock}
-                    className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-blue-600 transition duration-300"
-                  >
-                    Add to Cart
-                  </button>
-
-                  {isAdmin && (
+                  <div className="mt-auto">
+                    <div className="flex items-center justify-between mb-2">
+                      <label htmlFor={`quantity-${product._id}`} className="text-sm font-medium text-gray-700">
+                        Quantity:
+                      </label>
+                      <select
+                        id={`quantity-${product._id}`}
+                        value={quantities[product._id]}
+                        onChange={(e) => handleQuantityChange(product._id, parseInt(e.target.value))}
+                        className="block w-24 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                      >
+                        {[...Array(product.maxOrderQuantity)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                     <button
-                      onClick={() => toggleEditMode(product._id)}
-                      className="mt-2 w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
+                      onClick={() => handleAddToCart(product)}
+                      disabled={!product.inStock}
+                      className="w-full bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-blue-600 transition duration-300"
                     >
-                      Edit Product
+                      Add to Cart
                     </button>
-                  )}
+                    {isAdmin && (
+                      <button
+                        onClick={() => toggleEditMode(product._id)}
+                        className="mt-2 w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
+                      >
+                        Edit Product
+                      </button>
+                    )}
+                  </div>
                 </>
               )}
             </div>
