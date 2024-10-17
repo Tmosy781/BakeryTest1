@@ -60,7 +60,7 @@ const ProductsPage = ({ isAdmin }) => {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold my-4">Our Bakery Products</h1>
+      <h1 className="text-4xl font-bold my-4 text-center">Our Bakery Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {products.map((product) => (
           <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col h-full">
@@ -99,7 +99,7 @@ const ProductsPage = ({ isAdmin }) => {
                   <p className="text-gray-600 mb-2">{product.description}</p>
                   <p className="text-sm text-gray-500 mb-1">Category: {product.category}</p>
                   <p className="text-sm text-gray-500 mb-1">Ingredients: {product.ingredients.join(', ')}</p>
-                  <p className="text-sm text-gray-500 mb-2">Allergens: {product.allergens.join(', ')}</p>
+                  <p className="text-sm text-red-400 mb-2">Allergens: {product.allergens.join(', ')}</p>
                   <p className="text-lg font-bold mb-4">
                     ${typeof product.price === 'number' ? product.price.toFixed(2) : 'Price not available'}
                   </p>

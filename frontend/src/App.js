@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
 import CartPage from './pages/CartPage';
+import AboutPage from './pages/AboutPage';
 import OrderConfirmation from './pages/OrderConfirmation';
 import OrderPage from './pages/OrderPage';
 import OrderDetailPage from './pages/OrderDetailPage';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/products" element={<ProductsPage isAdmin={checkIsAdmin()} />} />
           <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           {/* Protected Routes */}
           <Route
