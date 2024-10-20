@@ -1,0 +1,41 @@
+// src/components/Footer.js
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Footer = () => {
+  return (
+    <footer className="bg-fuchsia-100 text-black text-sm">
+      <div className="container mx-auto py-4">
+        <div className="flex flex-wrap justify-between items-center">
+          <div className="w-full sm:w-auto mb-2 sm:mb-0">
+            <span className="font-semibold">Sugar Plum</span> - Delightful treats for every occasion.
+          </div>
+          <div className="w-full sm:w-auto mb-2 sm:mb-0">
+            <Link to="/" className="hover:text-gray-600 mr-3">Home</Link>
+            <Link to="/products" className="hover:text-gray-600 mr-3">Products</Link>
+            <Link to="/about" className="hover:text-gray-600">About Us</Link>
+          </div>
+          <div className="w-full sm:w-auto mb-2 sm:mb-0">
+            Contact: info@sugarplum.com | (123) 456-7890
+          </div>
+          <div className="w-full sm:w-auto flex justify-center sm:justify-end space-x-4">
+            <a href="#" className="text-black hover:text-gray-600">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" className="text-black hover:text-gray-600">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="#" className="text-black hover:text-gray-600">
+              <i className="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+        <div className="text-center mt-2">
+          <p>&copy; {new Date().getFullYear()} Sugar Plum. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
