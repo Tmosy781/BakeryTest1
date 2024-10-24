@@ -19,13 +19,13 @@ const Footer = () => {
             Contact: info@sugarplum.com | (123) 456-7890
           </div>
           <div className="w-full sm:w-auto flex justify-center sm:justify-end space-x-4">
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="https://www.facebook.com" className="text-black hover:text-gray-600" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="https://www.twitter.com" className="text-black hover:text-gray-600" rel="noopener noreferrer">
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="https://www.instagram.com" className="text-black hover:text-gray-600" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-instagram"></i>
             </a>
           </div>
