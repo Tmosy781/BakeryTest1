@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer'; // Import the Footer component
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
@@ -30,9 +30,13 @@ function App() {
 
   return (
     <CartProvider>
-      <div className="flex flex-col min-h-screen multiple-backgrounds">
-        <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} isAdmin={checkIsAdmin()} />
-        <main className="flex-grow">
+      <div className="min-h-screen flex flex-col multiple-backgrounds">
+        <Navbar 
+          isAuthenticated={isAuthenticated} 
+          setIsAuthenticated={setIsAuthenticated} 
+          isAdmin={checkIsAdmin()} 
+        />
+        <main className="flex-1 container mx-auto px-4 pb-12"> {/* Added padding-bottom */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage isAdmin={checkIsAdmin()} />} />
@@ -40,7 +44,6 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
-            {/* Protected Routes */}
             <Route
               path="/orders"
               element={
@@ -55,7 +58,7 @@ function App() {
             />
           </Routes>
         </main>
-        <Footer /> {/* Add the Footer component here */}
+        <Footer />
       </div>
     </CartProvider>
   );

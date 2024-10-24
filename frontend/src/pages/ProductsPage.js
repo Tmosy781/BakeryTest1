@@ -4,16 +4,22 @@ import { useCart } from '../context/CartContext';
 
 const ProductsPage = ({ isAdmin }) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const { addToCart } = useCart();
   const [quantities, setQuantities] = useState({});
   const [editMode, setEditMode] = useState({});
   const [editedProduct, setEditedProduct] = useState({});
+
+  // Categories from your product model
+  const categories = ['All', 'Cakes', 'Cookies', 'Breads', 'Pastries', 'Other'];
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8081/api/products');
         setProducts(response.data);
+        setFilteredProducts(response.data);
         const initialQuantities = response.data.reduce((acc, product) => {
           acc[product._id] = 1;
           return acc;
@@ -25,6 +31,15 @@ const ProductsPage = ({ isAdmin }) => {
     };
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(product => product.category === selectedCategory);
+      setFilteredProducts(filtered);
+    }
+  }, [selectedCategory, products]);
 
   const handleQuantityChange = (productId, quantity) => {
     setQuantities(prev => ({ ...prev, [productId]: quantity }));
@@ -61,8 +76,25 @@ const ProductsPage = ({ isAdmin }) => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-4xl font-bold my-4 text-center">Our Bakery Products</h1>
+      
+      {/* Category Filter */}
+      <div className="mb-6">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full sm:w-48 p-2 border rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        >
+          {categories.map(category => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col h-full">
             {product.image && (
               <img className="w-full h-47 object-cover" src={product.image.imgUrl} alt={product.name} />
@@ -91,7 +123,7 @@ const ProductsPage = ({ isAdmin }) => {
                     className="w-full mb-2 p-2 border rounded"
                   />
                   <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
-                  <button type="button" onClick={() => toggleEditMode(product._id)} className="bg-gray-500 text-white px-4 py-2 rounded ml-2">Cancel</button>
+                  <button type="button" onClick={() => toggleEditMode(product._id)} className="bg-gray-500 text-white px-4 py-2 rounded mt-2">Cancel</button>
                 </form>
               ) : (
                 <>
@@ -123,8 +155,7 @@ const ProductsPage = ({ isAdmin }) => {
                     </div>
                     <button
                       onClick={() => handleAddToCart(product)}
-                      disabled={!product.inStock}
-                      className="w-full bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50 hover:bg-blue-600 transition duration-300"
+                      className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
                     >
                       Add to Cart
                     </button>
