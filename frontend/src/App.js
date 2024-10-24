@@ -36,7 +36,7 @@ function App() {
           setIsAuthenticated={setIsAuthenticated} 
           isAdmin={checkIsAdmin()} 
         />
-        <main className="flex-1 container mx-auto px-4 pb-12"> {/* Added padding-bottom */}
+        <main className="flex-1 container mx-auto px-4 pb-12 pt-20"> {/* Added padding-top */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage isAdmin={checkIsAdmin()} />} />
