@@ -51,22 +51,21 @@ const LoginPage = ({ setIsAuthenticated }) => {
           password: signUpPassword,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         throw new Error(data.message || 'Registration failed');
       }
-  
+
       localStorage.setItem('accessToken', data.accessToken);
       setIsAuthenticated(true);
       await fetchCart();
       setSignUpSuccess(true);
-      // Don't navigate or close modal immediately, let user see success message
       setTimeout(() => {
         setShowSignUpModal(false);
         navigate('/');
-      }, 2000); // Close modal and navigate after 2 seconds
+      }, 2000);
     } catch (error) {
       console.error('Registration failed', error);
       setSignUpError(error.message);
@@ -76,8 +75,13 @@ const LoginPage = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1731597089778_StoreFront.png?alt=media&token=9027c0e6-5178-4268-8df3-87a566e6dbd6')`,
+      }}
+    >
+      <div className="max-w-md w-full space-y-8 bg-white bg-opacity-90 p-8 rounded-lg shadow-lg backdrop-blur-sm">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -124,7 +128,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
             </button>
           </div>
         </form>
-        
+
         <div className="animate-shake animate-twice text-sm">
           <span className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer" onClick={() => setShowSignUpModal(true)}>
             Don't have an account? Sign up
@@ -132,101 +136,100 @@ const LoginPage = ({ setIsAuthenticated }) => {
         </div>
       </div>
 
-    {/* Sign-Up Modal */}
-{showSignUpModal && (
-  <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+      {/* Sign-Up Modal */}
+      {showSignUpModal && (
+        <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
-      <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-      <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div className="sm:flex sm:items-start">
-            <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
-                Sign Up
-              </h3>
-              {signUpSuccess ? (
-                <div className="animate-fade-in animate-duration-500 text-green-600 font-medium text-lg">
-                  Thanks for signing up!!
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
+                      Sign Up
+                    </h3>
+                    {signUpSuccess ? (
+                      <div className="animate-fade-in animate-duration-500 text-green-600 font-medium text-lg">
+                        Thanks for signing up!!
+                      </div>
+                    ) : (
+                      <form onSubmit={handleSignUp} className="space-y-4">
+                        <div>
+                          <label htmlFor="signUpUsername" className="block text-sm font-medium text-gray-700">
+                            Username
+                          </label>
+                          <input
+                            type="text"
+                            name="signUpUsername"
+                            id="signUpUsername"
+                            required
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={signUpUsername}
+                            onChange={(e) => setSignUpUsername(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="signUpEmail" className="block text-sm font-medium text-gray-700">
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            name="signUpEmail"
+                            id="signUpEmail"
+                            required
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={signUpEmail}
+                            onChange={(e) => setSignUpEmail(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="signUpPassword" className="block text-sm font-medium text-gray-700">
+                            Password
+                          </label>
+                          <input
+                            type="password"
+                            name="signUpPassword"
+                            id="signUpPassword"
+                            required
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={signUpPassword}
+                            onChange={(e) => setSignUpPassword(e.target.value)}
+                          />
+                        </div>
+                        {signUpError && <div className="text-red-500 text-sm">{signUpError}</div>}
+                      </form>
+                    )}
+                  </div>
                 </div>
-              ) : (
-                <form onSubmit={handleSignUp} className="space-y-4">
-                <div>
-                  <label htmlFor="signUpUsername" className="block text-sm font-medium text-gray-700">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="signUpUsername"
-                    id="signUpUsername"
-                    required
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    value={signUpUsername}
-                    onChange={(e) => setSignUpUsername(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="signUpEmail" className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="signUpEmail"
-                    id="signUpEmail"
-                    required
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    value={signUpEmail}
-                    onChange={(e) => setSignUpEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="signUpPassword" className="block text-sm font-medium text-gray-700">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="signUpPassword"
-                    id="signUpPassword"
-                    required
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    value={signUpPassword}
-                    onChange={(e) => setSignUpPassword(e.target.value)}
-                  />
-                </div>
-                {signUpError && <div className="text-red-500 text-sm">{signUpError}</div>}
-                </form>
-              )}
-              {signUpError && <div className="text-red-500 text-sm mt-2">{signUpError}</div>}
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                {!signUpSuccess && (
+                  <>
+                    <button
+                      type="submit"
+                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                      disabled={isLoading}
+                      onClick={handleSignUp}
+                    >
+                      {isLoading ? 'Signing Up...' : 'Sign Up'}
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={() => setShowSignUpModal(false)}
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-          {!signUpSuccess && (
-            <>
-              <button
-                type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                disabled={isLoading}
-                onClick={handleSignUp}
-              >
-                {isLoading ? 'Signing Up...' : 'Sign Up'}
-              </button>
-              <button
-                type="button"
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                onClick={() => setShowSignUpModal(false)}
-              >
-                Cancel
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 };
