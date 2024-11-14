@@ -1,19 +1,61 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const AboutPageContainer = styled.div`
-  text-align: center;
-`;
-
-
+import { Link } from 'react-router-dom';
 
 const AboutPage = () => {
   return (
-    <AboutPageContainer>
-      <h1>About Sugar Plum</h1>
-      <p>A little about me!</p>
-      
-    </AboutPageContainer>
+    <div className="container mx-auto px-4 py-12">
+      <div className="max-w-3xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-pink-800 mb-4 animate-fade-up animate-once">
+            About Sugar Plum
+          </h1>
+          <div className="w-24 h-1 bg-pink-400 mx-auto mb-8"></div>
+        </div>
+
+        {/* Main Content */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+          <div className="prose max-w-none">
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              Welcome to Sugar Plum! I'm Jeudy, and I'm delighted you've stopped by. For over a decade, 
+              I've been pursuing my passion for baking, transforming my home kitchen into a creative sanctuary 
+              where each recipe becomes a work of art.
+            </p>
+
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              To me, baking is more than just following recipes – it's an artistic journey where flavors 
+              and aesthetics come together to create something truly special. Every treat that comes from 
+              my kitchen is crafted with attention to both taste and presentation, because I believe we 
+              eat with our eyes first!
+            </p>
+
+            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+              We're conveniently located just 20 minutes north of Boston, bringing handcrafted sweetness 
+              to our local community. Each creation is made with love, care, and a sprinkle of creativity.
+            </p>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center bg-pink-50 rounded-lg p-8 animate-fade-up animate-delay-300">
+          <p className="text-xl text-pink-800 font-semibold mb-6">
+            Ready to experience the magic of Sugar Plum?
+          </p>
+          <Link 
+            to="/products"
+            className="inline-block px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition duration-300 text-lg font-semibold"
+          >
+            Browse Our Treats
+          </Link>
+        </div>
+
+        {/* Optional Contact Info */}
+        <div className="mt-12 text-center text-gray-600">
+          <p className="mb-2">📍 Located just 20 minutes north of Boston</p>
+          <p>✨ Creating sweet memories, one treat at a time</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
