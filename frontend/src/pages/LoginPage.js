@@ -76,7 +76,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex rounded-xl items-center justify-center bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8"
       style={{
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1731597089778_StoreFront.png?alt=media&token=9027c0e6-5178-4268-8df3-87a566e6dbd6')`,
       }}

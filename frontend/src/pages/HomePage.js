@@ -30,28 +30,35 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Featured Categories */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Seasonal Specialties</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
-          {['Pumpkin Muffins', 'Apple Cinnamon Bread', 'Snickerdoodle Cookies'].map((category) => (
-            <div key={category} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">{category}</h3>
-                <Link
-                  to="/products"
-                  className="text-pink-600 hover:text-pink-700 font-medium"
-                >
-                  View All →
-                </Link>
-              </div>
-            </div>
-          ))}
+      <div 
+  className="relative max-w-7xl mx-auto px-4 py-16"
+  style={{
+    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1731597082840_FallLeaves.png?alt=media&token=ba3d60f4-52a1-4de3-974b-536c375f3d99')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    borderRadius: '1rem',
+  }}
+>
+  <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Seasonal Specialties</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+    {['Pumpkin Muffins', 'Apple Cinnamon Bread', 'Snickerdoodle Cookies'].map((category) => (
+      <div key={category} className="bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+        <div className="p-6 text-center">
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">{category}</h3>
+          <Link
+            to="/products"
+            className="text-pink-600 hover:text-pink-700 font-medium"
+          >
+            View All →
+          </Link>
         </div>
       </div>
+    ))}
+  </div>
+</div>
 
       {/* Call to Action */}
-      <div className="bg-pink-50 py-16 px-4 mt-16">
+      <div className="bg-pink-50 rounded-xl py-16 px-4 mt-16">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h2 className="text-3xl font-bold mb-6 text-gray-800">Ready to Place an Order?</h2>
