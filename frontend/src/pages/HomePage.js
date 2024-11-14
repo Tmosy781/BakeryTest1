@@ -49,7 +49,7 @@ const HomePage = () => {
             to="/products"
             className="text-pink-600 hover:text-pink-700 font-medium"
           >
-            View All →
+            Take A Peak
           </Link>
         </div>
       </div>
