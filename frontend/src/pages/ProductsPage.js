@@ -11,7 +11,6 @@ const ProductsPage = ({ isAdmin }) => {
   const [editMode, setEditMode] = useState({});
   const [editedProduct, setEditedProduct] = useState({});
 
-  // Categories from your product model
   const categories = ['All', 'Cakes', 'Cookies', 'Breads', 'Pastries', 'Other'];
 
   useEffect(() => {
@@ -77,7 +76,6 @@ const ProductsPage = ({ isAdmin }) => {
     <div className="container mx-auto px-4">
       <h1 className="text-4xl font-bold my-4 text-center">Our Bakery Products</h1>
       
-      {/* Category Filter */}
       <div className="mb-6">
         <select
           value={selectedCategory}
@@ -92,7 +90,6 @@ const ProductsPage = ({ isAdmin }) => {
         </select>
       </div>
 
-      {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredProducts.map((product) => (
           <div key={product._id} className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col h-full">
@@ -132,11 +129,12 @@ const ProductsPage = ({ isAdmin }) => {
                   <p className="text-sm text-gray-500 mb-1">Category: {product.category}</p>
                   <p className="text-sm text-gray-500 mb-1">Ingredients: {product.ingredients.join(', ')}</p>
                   <p className="text-sm text-red-400 mb-2">Allergens: {product.allergens.join(', ')}</p>
-                  <p className="text-lg font-bold mb-4">
-                    ${typeof product.price === 'number' ? product.price.toFixed(2) : 'Price not available'}
-                  </p>
-                  <div className="mt-auto">
-                    <div className="flex items-center justify-between mb-2">
+                  
+                  <div className="mt-auto space-y-2">
+                    <p className="text-lg font-bold text-left">
+                      ${typeof product.price === 'number' ? product.price.toFixed(2) : 'Price not available'}
+                    </p>
+                    <div className="flex items-center justify-between">
                       <label htmlFor={`quantity-${product._id}`} className="text-sm font-medium text-gray-700">
                         Quantity:
                       </label>
@@ -162,7 +160,7 @@ const ProductsPage = ({ isAdmin }) => {
                     {isAdmin && (
                       <button
                         onClick={() => toggleEditMode(product._id)}
-                        className="mt-2 w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
+                        className="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
                       >
                         Edit Product
                       </button>

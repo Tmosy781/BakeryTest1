@@ -32,9 +32,9 @@ const HomePage = () => {
 
       {/* Featured Categories */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Our Specialties</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {['Cakes', 'Cookies', 'Breads', 'Pastries'].map((category) => (
+        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Seasonal Specialties</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+          {['Cookies', 'Breads', 'Pastries'].map((category) => (
             <div key={category} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
               <div className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2 text-gray-800">{category}</h3>

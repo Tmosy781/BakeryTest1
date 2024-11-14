@@ -20,7 +20,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-fuchsia-100 p-4 shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-fuchsia-100 p-3 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <div className="rounded-full overflow-hidden shadow-sm p-.5 bg-white/50 backdrop-blur-sm">
