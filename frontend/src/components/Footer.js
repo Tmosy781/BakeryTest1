@@ -1,6 +1,6 @@
 // src/components/Footer.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
   return (
@@ -10,11 +10,7 @@ const Footer = () => {
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             <span className="font-semibold">Sugar Plum</span> - Delightful treats for every occasion.
           </div>
-          <div className="w-full sm:w-auto mb-2 sm:mb-0">
-            <Link to="/" className="hover:text-gray-600 mr-3">Home</Link>
-            <Link to="/products" className="hover:text-gray-600 mr-3">Products</Link>
-            <Link to="/about" className="hover:text-gray-600">About Us</Link>
-          </div>
+          
           <div className="w-full sm:w-auto mb-2 sm:mb-0">
             Contact: info@sugarplum.com | (123) 456-7890
           </div>
@@ -22,7 +18,7 @@ const Footer = () => {
             <a href="https://www.facebook.com" className="text-black hover:text-gray-600" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://www.twitter.com" className="text-black hover:text-gray-600" rel="noopener noreferrer">
+            <a href="https://www.twitter.com" className="text-black hover:text-gray-600" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-twitter"></i>
             </a>
             <a href="https://www.instagram.com" className="text-black hover:text-gray-600" target="_blank" rel="noopener noreferrer">
