@@ -51,31 +51,31 @@ const HomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
         <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <img
-            src="[Your first dessert image URL]"
-            alt="Fall Dessert 1"
+            src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733109763070_PumpkinMuffin.png?alt=media&token=39ddf677-7cb1-490b-af44-643ec49a9134"
+            alt="Pumpkin Muffins"
             className="w-full h-48 object-cover rounded-lg mb-4"
           />
-          <h3 className="text-xl font-semibold mb-2 text-center">Pumpkin Spice Cake</h3>
+          <h3 className="text-xl font-semibold mb-2 text-center">Pumpkin Muffins</h3>
           <p className="text-gray-600 text-center">Rich pumpkin cake with cream cheese frosting</p>
         </div>
      
         <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <img
-            src="[Your second dessert image URL]"
-            alt="Fall Dessert 2"
+            src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733162533559_AppleCinBread.png?alt=media&token=43efbb19-beec-428e-a8e4-ea7859bb38df"
+            alt="Apple Cinnamon Bread"
             className="w-full h-48 object-cover rounded-lg mb-4"
           />
-          <h3 className="text-xl font-semibold mb-2 text-center">Apple Cinnamon Tart</h3>
+          <h3 className="text-xl font-semibold mb-2 text-center">Apple Cinnamon Bread</h3>
           <p className="text-gray-600 text-center">Fresh apples with warm autumn spices</p>
         </div>
      
         <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <img
-            src="[Your third dessert image URL]"
-            alt="Fall Dessert 3"
+            src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733162544130_SnickerdoodleCookie.png?alt=media&token=6331a65f-d72a-4f18-b1ad-603ce85d9a7d"
+            alt="Snickerdoodle Cookies"
             className="w-full h-48 object-cover rounded-lg mb-4"
           />
-          <h3 className="text-xl font-semibold mb-2 text-center">Maple Pecan Pie</h3>
+          <h3 className="text-xl font-semibold mb-2 text-center">Snickerdoodle Cookies</h3>
           <p className="text-gray-600 text-center">Classic pecan pie with pure maple syrup</p>
         </div>
       </div>
