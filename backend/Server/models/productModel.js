@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Cakes', 'Cookies', 'Breads', 'Pastries', 'Other']
+    enum: ['Cakes', 'Cookies', 'Breads', 'Pastries', 'Seasonal', 'Other']
   },
   image: {
     type: mongoose.Schema.Types.ObjectId,

@@ -30,7 +30,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div 
+      <div
   className="relative max-w-7xl mx-auto px-4 py-16"
   style={{
     backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1731597082840_FallLeaves.png?alt=media&token=ba3d60f4-52a1-4de3-974b-536c375f3d99')`,
@@ -40,20 +40,12 @@ const HomePage = () => {
   }}
 >
   <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Seasonal Specialties</h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
-    {['Pumpkin Muffins', 'Apple Cinnamon Bread', 'Snickerdoodle Cookies'].map((category) => (
-      <div key={category} className="bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-semibold mb-2 text-gray-800">{category}</h3>
-          <Link
-            to="/products"
-            className="text-pink-600 hover:text-pink-700 font-medium"
-          >
-            Take A Peak
-          </Link>
-        </div>
-      </div>
-    ))}
+  <div className="flex justify-center mb-12">
+    <img 
+      src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733162549665_FallTreatTable.png?alt=media&token=6efe2b30-b976-4c64-af4c-47b10b649908"
+      alt="Fall Treat Table Display"
+      className="rounded-lg shadow-xl max-w-[700px] w-full h-auto"
+    />
   </div>
 </div>
 
@@ -73,7 +65,7 @@ const HomePage = () => {
             </Link>
           </div>
           <div className="md:w-1/2 md:pl-8">
-            <img 
+            <img
               src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1731553920023_counterscene.png?alt=media&token=4f0e3b4c-c699-441d-97a8-16bb4c5f9d2b"
               alt="Bakery Counter Scene"
               className="w-full h-auto rounded-lg shadow-lg"

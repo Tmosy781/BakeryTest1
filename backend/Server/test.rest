@@ -127,8 +127,7 @@ Content-Type: application/json
 
 ### Get All Users (Admin only)
 GET {{baseUrl}}}}/users/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjIxN2M4MDFlZjliYTc0YWExMmU3YiIsImVtYWlsIjoiYWRtaW4zQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJhZG1pbl91c2VyIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI3Mjk1Mzc3LCJleHAiOjE3MjcyOTg5Nzd9.Jqg18L_-ownesWhFCw3ATK6S-njH2_el-TPEiMV0SLk
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzMzMTA5MzU2LCJleHAiOjE3MzMxMTI5NTZ9.UW-4sFSK9zyxHesBDy5i6M7el4fs50dRG1Rkf7JPgwI
 ###
 
 ### Edit User (Replace :id with actual user id)
@@ -191,16 +190,16 @@ GET {{baseUrl}}/products/product_id_here
 
 ### Create a new product (Admin only)
 POST {{baseUrl}}/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTM0OTk0LCJleHAiOjE3MjkxMzg1OTR9.TcDHOrjdVpzIF9038U9ueu_Y3b4pccqOmKXWDcfdTE8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzMzMTA5MzU2LCJleHAiOjE3MzMxMTI5NTZ9.UW-4sFSK9zyxHesBDy5i6M7el4fs50dRG1Rkf7JPgwI
 Content-Type: application/json
 
 {
-  "name": "Blueberry Crumble",
-  "description": "A warm, juicy blueberry crumble topped with a golden, buttery streusel that delivers a perfect mix of sweet and tart in every bite..",
-  "price": 12.99,
+  "name": "Pumkin Muffins",
+  "description": "Delicious muffins made with real pumpkin and warm fall spices",
+  "price": 6.99,
   "category": "Pastries",
-  "imageId": "670fde14ef76d17421dc66cf",
-  "ingredients": ["Flour", "Sugar", "Brown Sugar", "Lemon Juice", "Butter", "Salt", "Fresh Blueberries", "Cinnamon", "Oats"],
+  "imageId": "674d28073a63b8e2e4ee6ae4",
+  "ingredients": ["Flour", "Pumkin", "Brown Sugar", "Butter", "Salt", "Cinnamon"],
   "allergens": ["Gluten", "Dairy", "Nuts"],
   "inStock": true,
   "maxOrderQuantity": 5
@@ -272,7 +271,7 @@ Authorization: Bearer {{authToken}}
 
 ### Variables
 @baseUrl = http://localhost:8081/api
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MDQ0NDU0LCJleHAiOjE3MjkwNDgwNTR9.gG-u628J9HRbNSuxZ9JiZSKgKs8YEMHDHPasxYnEkh4
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDdlNGQyMDlkYjIyN2UxYTI3YWE1NiIsImVtYWlsIjoidG1vc3k3ODFAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRtb3N5NzgxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzMzMTA5MzU2LCJleHAiOjE3MzMxMTI5NTZ9.UW-4sFSK9zyxHesBDy5i6M7el4fs50dRG1Rkf7JPgwI
 
 ### Create a new order
 POST {{baseUrl}}/orders
