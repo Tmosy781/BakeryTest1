@@ -11,7 +11,7 @@ const ProductsPage = ({ isAdmin }) => {
   const [editMode, setEditMode] = useState({});
   const [editedProduct, setEditedProduct] = useState({});
 
-  const categories = ['All', 'Cakes', 'Cookies', 'Breads', 'Pastries', 'Other'];
+  const categories = ['All', 'Cakes', 'Cookies', 'Breads', 'Pastries', 'Seasonal', 'Other'];
 
   useEffect(() => {
     const fetchProducts = async () => {
