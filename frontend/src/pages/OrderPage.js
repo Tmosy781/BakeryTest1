@@ -79,7 +79,9 @@ const OrderPage = () => {
 
   return (
     <Container>
-  <h1>{isAdmin ? 'All Orders' : 'Your Orders'}</h1>
+  <h1 className="text-center text-3xl font-bold mb-6">
+    {isAdmin ? 'All Orders' : 'Your Orders'}
+  </h1>
   {error && <Alert variant="danger">{error}</Alert>}
   {orders.length === 0 ? (
     <Alert variant="info">No orders found.</Alert>
