@@ -10,7 +10,7 @@ const CartPage = () => {
   const [error, setError] = useState('');
 
   if (!cart || !cart.items || cart.items.length === 0) {
-    return <div>Your cart is empty</div>;
+    return <div className="text-center mb-12">Your cart is empty</div>;
   }
 
   const totalPrice = cart.items.reduce(

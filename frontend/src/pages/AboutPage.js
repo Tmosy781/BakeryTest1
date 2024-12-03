@@ -14,22 +14,25 @@ const AboutPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+        <div className="bg-white rounded-lg shadow-lg p-12 mb-12 bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.85)), url('https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733169675487_AboutUsChibi.png?alt=media&token=7b3154d7-f04b-4021-8e08-60a6c8986b08')`,
+        }}>
           <div className="prose max-w-none">
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+            <p className="text-lg text-gray-800 mb-6 leading-relaxed">
               Welcome to Sugar Plum! I'm Jeudy, and I'm delighted you've stopped by. For over a decade, 
               I've been pursuing my passion for baking, transforming my home kitchen into a creative sanctuary 
               where each recipe becomes a work of art.
             </p>
 
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+            <p className="text-lg text-gray-800 mb-6 leading-relaxed">
               To me, baking is more than just following recipes – it's an artistic journey where flavors 
               and aesthetics come together to create something truly special. Every treat that comes from 
               my kitchen is crafted with attention to both taste and presentation, because I believe we 
               eat with our eyes first!
             </p>
 
-            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+            <p className="text-lg text-gray-800 mb-8 leading-relaxed">
               We're conveniently located just 20 minutes north of Boston, bringing handcrafted sweetness 
               to our local community. Each creation is made with love, care, and a sprinkle of creativity.
             </p>
