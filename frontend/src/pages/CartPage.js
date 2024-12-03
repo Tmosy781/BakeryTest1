@@ -10,7 +10,15 @@ const CartPage = () => {
   const [error, setError] = useState('');
 
   if (!cart || !cart.items || cart.items.length === 0) {
-    return <div className="text-center mb-12">Your cart is empty</div>;
+    return (
+      <div className="flex justify-center mt-14 items-center p-8">
+        <img 
+          src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733194781117_EmptyShoppingCartCat.png?alt=media&token=523cdd02-6542-4407-8d5b-6b7d0350c98b"
+          alt="Empty Cart"
+          className="max-w-md w-full h-auto rounded-3xl"
+        />
+      </div>
+    );
   }
 
   const totalPrice = cart.items.reduce(
@@ -20,17 +28,17 @@ const CartPage = () => {
 
   const handleSubmitOrder = async () => {
     try {
-      console.log('Cart Items:', cart.items); // Debugging line
+      console.log('Cart Items:', cart.items);
 
       const orderData = {
         items: cart.items.map((item) => ({
-          product: item.product._id || item.product, // Adjusted line
+          product: item.product._id || item.product,
           quantity: item.quantity,
         })),
         totalAmount: totalPrice,
       };
 
-      console.log('Order Data:', orderData); // Debugging line
+      console.log('Order Data:', orderData);
 
       const token = localStorage.getItem('accessToken');
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
