@@ -10,25 +10,42 @@ const ProductsPage = ({ isAdmin }) => {
   const [quantities, setQuantities] = useState({});
   const [editMode, setEditMode] = useState({});
   const [editedProduct, setEditedProduct] = useState({});
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [availableImages, setAvailableImages] = useState([]);
+  const [newProduct, setNewProduct] = useState({
+    name: '',
+    description: '',
+    price: '',
+    category: 'Cakes',
+    ingredients: '',
+    allergens: '',
+    image: '',
+    maxOrderQuantity: 5
+  });
 
   const categories = ['All', 'Cakes', 'Cookies', 'Breads', 'Pastries', 'Seasonal', 'Other'];
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/api/products');
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-        const initialQuantities = response.data.reduce((acc, product) => {
+        const [productsRes, imagesRes] = await Promise.all([
+          axios.get('http://localhost:8081/api/products'),
+          axios.get('http://localhost:8081/api/images')
+        ]);
+        setProducts(productsRes.data);
+        setFilteredProducts(productsRes.data);
+        setAvailableImages(imagesRes.data);
+        
+        const initialQuantities = productsRes.data.reduce((acc, product) => {
           acc[product._id] = 1;
           return acc;
         }, {});
         setQuantities(initialQuantities);
       } catch (err) {
-        console.error('Error fetching products:', err);
+        console.error('Error fetching data:', err);
       }
     };
-    fetchProducts();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -72,10 +89,68 @@ const ProductsPage = ({ isAdmin }) => {
     }
   };
 
+  const handleCreateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('accessToken');
+      const productData = {
+        ...newProduct,
+        ingredients: newProduct.ingredients.split(',').map(i => i.trim()),
+        allergens: newProduct.allergens.split(',').map(a => a.trim()),
+        price: parseFloat(newProduct.price),
+        imageId: newProduct.image
+      };
+  
+      await axios.post(
+        'http://localhost:8081/api/products',
+        productData,
+        {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+  
+      // Fetch fresh data after creating new product
+      const updatedProductsRes = await axios.get('http://localhost:8081/api/products');
+      setProducts(updatedProductsRes.data);
+      setFilteredProducts(selectedCategory === 'All' ? 
+        updatedProductsRes.data : 
+        updatedProductsRes.data.filter(p => p.category === selectedCategory)
+      );
+  
+      setShowCreateModal(false);
+      setNewProduct({
+        name: '',
+        description: '',
+        price: '',
+        category: 'Cakes',
+        ingredients: '',
+        allergens: '',
+        image: '',
+        maxOrderQuantity: 5
+      });
+    } catch (error) {
+      console.error('Error creating product:', error);
+      alert(error.response?.data?.message || 'Error creating product');
+    }
+  };
+
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-4xl font-bold my-4 text-center">Our Bakery Products</h1>
-      
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-4xl font-bold my-4">Our Bakery Products</h1>
+        {isAdmin && (
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+          >
+            Create New Product
+          </button>
+        )}
+      </div>
+
       <div className="mb-6">
         <select
           value={selectedCategory}
@@ -89,6 +164,128 @@ const ProductsPage = ({ isAdmin }) => {
           ))}
         </select>
       </div>
+
+      {showCreateModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-4">Create New Product</h2>
+            <form onSubmit={handleCreateSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Name</label>
+                <input
+                  type="text"
+                  value={newProduct.name}
+                  onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Description</label>
+                <textarea
+                  value={newProduct.description}
+                  onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Price</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={newProduct.price}
+                  onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Category</label>
+                <select
+                  value={newProduct.category}
+                  onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                >
+                  {categories.filter(cat => cat !== 'All').map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Ingredients (comma-separated)</label>
+                <input
+                  type="text"
+                  value={newProduct.ingredients}
+                  onChange={(e) => setNewProduct({...newProduct, ingredients: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Allergens (comma-separated)</label>
+                <input
+                  type="text"
+                  value={newProduct.allergens}
+                  onChange={(e) => setNewProduct({...newProduct, allergens: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Image</label>
+                <select
+                  value={newProduct.image}
+                  onChange={(e) => setNewProduct({...newProduct, image: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                >
+                  <option value="">Select an image</option>
+                  {availableImages.map((image) => (
+                    <option key={image._id} value={image._id}>
+                      {image.imgName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Max Order Quantity</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="5"
+                  value={newProduct.maxOrderQuantity}
+                  onChange={(e) => setNewProduct({...newProduct, maxOrderQuantity: parseInt(e.target.value)})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition duration-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+                >
+                  Create Product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredProducts.map((product) => (
