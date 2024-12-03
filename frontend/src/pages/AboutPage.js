@@ -43,7 +43,7 @@ const AboutPage = () => {
           </p>
           <Link 
             to="/products"
-            className="inline-block px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition duration-300 text-lg font-semibold"
+            className="inline-block px-8 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition duration-300 text-lg font-semibold no-underline"
           >
             Browse Our Treats
           </Link>
