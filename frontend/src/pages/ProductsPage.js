@@ -138,9 +138,9 @@ const ProductsPage = ({ isAdmin }) => {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold my-4">Our Bakery Products</h1>
+    <div className="container text-center mx-auto px-4">
+      <div className="text-center justify-between items-center mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold text-pink-800 mb-4 my-8">Our Bakery Products</h1>
         {isAdmin && (
           <button
             onClick={() => setShowCreateModal(true)}
