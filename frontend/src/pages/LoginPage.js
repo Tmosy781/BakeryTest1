@@ -144,16 +144,16 @@ const LoginPage = ({ setIsAuthenticated }) => {
 
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
-                      Sign Up
+                  <div className="mt-8 text-center sm:mt-0 sm:text-left w-full">
+                    <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-4" id="modal-title">
+                      Sign Up for an Account
                     </h3>
                     {signUpSuccess ? (
                       <div className="animate-fade-in animate-duration-500 text-green-600 font-medium text-lg">
-                        Thanks for signing up!!
+                        Thank you for signing up!!
                       </div>
                     ) : (
                       <form onSubmit={handleSignUp} className="space-y-4">
@@ -210,7 +210,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
                   <>
                     <button
                       type="submit"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
                       disabled={isLoading}
                       onClick={handleSignUp}
                     >

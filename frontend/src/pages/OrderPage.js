@@ -79,64 +79,66 @@ const OrderPage = () => {
 
   return (
     <Container>
-      <h1>{isAdmin ? 'All Orders' : 'Your Orders'}</h1>
-      {error && <Alert variant="danger">{error}</Alert>}
-      {orders.length === 0 ? (
-        <Alert variant="info">No orders found.</Alert>
-      ) : (
-        <ListGroup>
-          {orders.map((order) => (
-            <ListGroup.Item key={order._id}>
-              <Card>
-                <Card.Header>
-                  <h5>Order ID: {order._id}</h5>
-                  {isAdmin && <p>User: {order.user.username || 'Unknown'}</p>}
-                </Card.Header>
-                <Card.Body>
-                  <p>Status: {order.status}</p>
-                  <p>Order Date: {new Date(order.orderDate).toLocaleString()}</p>
-                  <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
-                  <h6>Items:</h6>
-                  <ListGroup variant="flush">
-                    {order.items.map((item, index) => (
-                      <ListGroup.Item key={index}>
-                        <p>Product: {item.product.name || 'Unknown Product'}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Price: ${((item.product.price || 0) * item.quantity).toFixed(2)}</p>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                  {isAdmin && (
-                    <Form.Group className="mt-3">
-                      <Form.Label>Update Status:</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={order.status}
-                        onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-                      >
-                        <option>Order Submitted</option>
-                        <option>In the Oven</option>
-                        <option>Complete</option>
-                        <option>Canceled</option>
-                      </Form.Control>
-                    </Form.Group>
-                  )}
-                  {!isAdmin && order.status === 'Order Submitted' && (
-                    <Button 
-                      variant="danger" 
-                      className="mt-3"
-                      onClick={() => cancelOrder(order._id)}
-                    >
-                      Cancel Order
-                    </Button>
-                  )}
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      )}
-    </Container>
+  <h1>{isAdmin ? 'All Orders' : 'Your Orders'}</h1>
+  {error && <Alert variant="danger">{error}</Alert>}
+  {orders.length === 0 ? (
+    <Alert variant="info">No orders found.</Alert>
+  ) : (
+    <ListGroup>
+      {orders
+        .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate))
+        .map((order) => (
+        <ListGroup.Item key={order._id}>
+          <Card>
+            <Card.Header>
+              <h5>Order ID: {order._id}</h5>
+              {isAdmin && <p>User: {order.user.username || 'Unknown'}</p>}
+            </Card.Header>
+            <Card.Body>
+              <p>Status: {order.status}</p>
+              <p>Order Date: {new Date(order.orderDate).toLocaleString()}</p>
+              <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
+              <h6>Items:</h6>
+              <ListGroup variant="flush">
+                {order.items.map((item, index) => (
+                  <ListGroup.Item key={index}>
+                    <p>Product: {item.product.name || 'Unknown Product'}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Price: ${((item.product.price || 0) * item.quantity).toFixed(2)}</p>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+              {isAdmin && (
+                <Form.Group className="mt-3">
+                  <Form.Label>Update Status:</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={order.status}
+                    onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+                  >
+                    <option>Order Submitted</option>
+                    <option>In the Oven</option>
+                    <option>Complete</option>
+                    <option>Canceled</option>
+                  </Form.Control>
+                </Form.Group>
+              )}
+              {!isAdmin && order.status === 'Order Submitted' && (
+                <Button
+                  variant="danger"
+                  className="mt-3"
+                  onClick={() => cancelOrder(order._id)}
+                >
+                  Cancel Order
+                </Button>
+              )}
+            </Card.Body>
+          </Card>
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
+  )}
+</Container>
   );
 };
 

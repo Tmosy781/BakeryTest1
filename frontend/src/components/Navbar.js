@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -7,6 +7,18 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   const { cart } = useCart();
   const itemCount = cart ? cart.items.reduce((sum, item) => sum + item.quantity, 0) : 0;
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -60,13 +72,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                 </svg>
                 ({itemCount})
               </Link>
-              <Link 
-                to="/orders" 
-                className="no-underline text-xl md:text-xl font-bold text-pink-800 hover:text-pink-600 transition-colors duration-200"
-              >
-                Orders
-              </Link>
-              <div className="relative">
+              <div ref={profileRef} className="relative">
                 <button
                   onClick={toggleProfile}
                   className="no-underline text-xl md:text-xl font-bold text-pink-800 hover:text-pink-600 transition-colors duration-200 focus:outline-none"
@@ -75,6 +81,13 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
                 </button>
                 {isProfileOpen && (
                   <div className="absolute right-0 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
+                    <Link
+                      to="/orders"
+                      className="block w-full text-left px-4 py-2 text-lg font-bold text-pink-800 hover:bg-pink-50 no-underline"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      Orders
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-lg font-bold text-pink-800 hover:bg-pink-50"
