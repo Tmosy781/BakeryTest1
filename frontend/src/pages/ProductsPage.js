@@ -112,7 +112,6 @@ const ProductsPage = ({ isAdmin }) => {
         }
       );
   
-      // Fetch fresh data after creating new product
       const updatedProductsRes = await axios.get('http://localhost:8081/api/products');
       setProducts(updatedProductsRes.data);
       setFilteredProducts(selectedCategory === 'All' ? 
@@ -134,6 +133,22 @@ const ProductsPage = ({ isAdmin }) => {
     } catch (error) {
       console.error('Error creating product:', error);
       alert(error.response?.data?.message || 'Error creating product');
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        const token = localStorage.getItem('accessToken');
+        await axios.delete(`http://localhost:8081/api/products/${productId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setProducts(prev => prev.filter(p => p._id !== productId));
+        setFilteredProducts(prev => prev.filter(p => p._id !== productId));
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        alert('Failed to delete product');
+      }
     }
   };
 
@@ -355,12 +370,20 @@ const ProductsPage = ({ isAdmin }) => {
                       Add to Cart
                     </button>
                     {isAdmin && (
-                      <button
-                        onClick={() => toggleEditMode(product._id)}
-                        className="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
-                      >
-                        Edit Product
-                      </button>
+                      <div className="space-y-2">
+                        <button
+                          onClick={() => toggleEditMode(product._id)}
+                          className="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300"
+                        >
+                          Edit Product
+                        </button>
+                        <button
+                          onClick={() => handleDeleteProduct(product._id)}
+                          className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+                        >
+                          Delete Product
+                        </button>
+                      </div>
                     )}
                   </div>
                 </>
