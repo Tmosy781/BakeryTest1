@@ -16,7 +16,7 @@ const ProductsPage = ({ isAdmin }) => {
     name: '',
     description: '',
     price: '',
-    category: 'Cakes',
+    category: 'Other',
     ingredients: '',
     allergens: '',
     image: '',
@@ -125,7 +125,7 @@ const ProductsPage = ({ isAdmin }) => {
         name: '',
         description: '',
         price: '',
-        category: 'Cakes',
+        category: 'Other',
         ingredients: '',
         allergens: '',
         image: '',
@@ -144,7 +144,7 @@ const ProductsPage = ({ isAdmin }) => {
         {isAdmin && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-300"
           >
             Create New Product
           </button>
