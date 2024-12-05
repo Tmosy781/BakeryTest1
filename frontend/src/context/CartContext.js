@@ -54,10 +54,44 @@ export const CartProvider = ({ children }) => {
       );
 
       setCart(response.data.cart);
-      alert('Item added to cart!');
     } catch (error) {
       console.error('Error adding to cart:', error);
-      alert('Failed to add item to cart.');
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('Failed to add item to cart.');
+      }
+    }
+  };
+
+  const updateCartItemQuantity = async (productId, newQuantity) => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        alert('Please log in to manage your cart.');
+        return;
+      }
+
+      // Updated URL to match backend route structure
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
+      const response = await axios.put(
+        `${API_URL}/cart/update/${productId}/quantity`,
+        { quantity: newQuantity },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setCart(response.data.cart);
+    } catch (error) {
+      console.error('Error updating cart item quantity:', error);
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('Failed to update item quantity.');
+      }
     }
   };
 
@@ -77,10 +111,13 @@ export const CartProvider = ({ children }) => {
       });
 
       setCart(response.data.cart);
-      alert('Item removed from cart!');
     } catch (error) {
       console.error('Error removing item from cart:', error);
-      alert('Failed to remove item from cart.');
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('Failed to remove item from cart.');
+      }
     }
   };
 
@@ -112,6 +149,7 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     clearCart,
     fetchCart,
+    updateCartItemQuantity,
   };
 
   return (
@@ -120,6 +158,5 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
 
 export default CartContext;
