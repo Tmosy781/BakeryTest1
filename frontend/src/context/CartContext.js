@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
         alert('Please log in to add items to your cart.');
         return;
       }
-
+  
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081/api';
       const response = await axios.post(
         `${API_URL}/cart/add`,
@@ -52,8 +52,9 @@ export const CartProvider = ({ children }) => {
           },
         }
       );
-
+  
       setCart(response.data.cart);
+      alert('Item added to cart!'); // Add this line to show success message
     } catch (error) {
       console.error('Error adding to cart:', error);
       if (error.response?.data?.message) {

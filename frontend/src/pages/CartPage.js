@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Container, ListGroup, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,11 +10,35 @@ const CartPage = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  // Empty cart state with cat image and call-to-action
   if (!cart || !cart.items || cart.items.length === 0) {
-    return <div className="text-center mt-8">Your cart is empty</div>;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        {/* Original empty cart cat image */}
+        <div className="flex justify-center mt-14 items-center p-8">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/bakeryapp-a05a3.appspot.com/o/images%2F1733194781117_EmptyShoppingCartCat.png?alt=media&token=523cdd02-6542-4407-8d5b-6b7d0350c98b"
+            alt="Empty Cart"
+            className="max-w-md w-full h-auto rounded-3xl"
+          />
+        </div>
+        
+        {/* Added helpful message and call-to-action */}
+        <div className="text-center mt-6 mb-8">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+            Turn that frown upside down! Look below!
+          </h2>
+          <Link 
+            to="/products"
+            className="bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition duration-300 text-lg font-semibold inline-block no-underline"
+          >
+            Start Shopping
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  // Calculate total price using the current quantities
   const totalPrice = cart.items.reduce(
     (total, item) => total + (item.product.price || 0) * item.quantity,
     0
@@ -21,7 +46,6 @@ const CartPage = () => {
 
   const handleQuantityChange = async (productId, newQuantity) => {
     try {
-      // Convert the string value to number
       const quantity = parseInt(newQuantity);
       await updateCartItemQuantity(productId, quantity);
     } catch (err) {
@@ -70,7 +94,7 @@ const CartPage = () => {
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
       <ListGroup>
         {cart.items.map((item) => (
-          <ListGroup.Item key={item._id} className="mb-4">
+          <ListGroup.Item key={item._id}>
             <div className="flex items-center">
               {item.product.image && item.product.image.imgUrl ? (
                 <img
@@ -95,7 +119,6 @@ const CartPage = () => {
                     onChange={(e) => handleQuantityChange(item.product._id, e.target.value)}
                     className="border rounded px-3 py-1"
                   >
-                    {/* Create array of numbers from 1 to 5 (default max) */}
                     {[...Array(5)].map((_, index) => (
                       <option key={index + 1} value={index + 1}>
                         {index + 1}
